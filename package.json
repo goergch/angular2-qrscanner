@@ -1,0 +1,47 @@
+{
+  "name": "angular2-qrscanner",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "ngc -p tsconfig.json",
+    "lint": "tslint src/**/*.ts",
+    "test": "tsc -p tsconfig.json && karma start",
+    "prepublish": "tsc -p tsconfig.json",
+    "tsc": "tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goergch/angular2-qrscanner"
+  },
+  "author": {
+    "name": "Christian Görg",
+    "email": "christian.goerg@de.trumpf.com"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goergch/angular2-qrscanner/issues"
+  },
+  "main": "./dist/index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@angular/common": "^2.4.7",
+    "@angular/compiler": "^2.4.7",
+    "@angular/compiler-cli": "^2.4.7",
+    "@angular/core": "^2.4.7",
+    "@angular/platform-server": "^2.4.7",
+    "@angular/platform-browser": "^2.4.7",
+    "codelyzer": "^2.0.0",
+    "rxjs": "^5.0.1",
+    "tslint": "^4.4.2",
+    "typescript": "2.1.6",
+    "zone.js": "^0.7.7",
+    "@types/es6-shim": "^0.31.32",
+    "@types/selenium-webdriver": "^2.53.39"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}
