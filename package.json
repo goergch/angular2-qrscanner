@@ -17,9 +17,12 @@
     "email": "christian.goerg@de.trumpf.com"
   },
   "keywords": [
-    "angular"
+    "angular",
+    "angular2",
+    "QRCode",
+    "Scanner"
   ],
-  "license": "MIT",
+  "license": "GPL V3",
   "bugs": {
     "url": "https://github.com/goergch/angular2-qrscanner/issues"
   },
@@ -40,8 +43,5 @@
     "zone.js": "^0.7.7",
     "@types/es6-shim": "^0.31.32",
     "@types/selenium-webdriver": "^2.53.39"
-  },
-  "engines": {
-    "node": ">=0.8.0"
   }
 }
