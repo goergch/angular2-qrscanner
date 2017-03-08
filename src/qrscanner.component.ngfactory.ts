@@ -28,6 +28,7 @@ export class Wrapper_QrScannerComponent {
   ngOnDetach(view:import2.AppView<any>,componentView:import2.AppView<any>,el:any):void {
   }
   ngOnDestroy():void {
+    this.context.ngOnDestroy();
     (this.subscription0 && this.subscription0.unsubscribe());
   }
   check_facing(currValue:any,throwOnChange:boolean,forceUpdate:boolean):void {
@@ -97,22 +98,18 @@ export class View_QrScannerComponent0 extends import2.AppView<import0.QrScannerC
   _text_4:any;
   _el_5:any;
   _text_6:any;
-  _el_7:any;
-  _text_8:any;
   constructor(viewUtils:import3.ViewUtils,parentView:import2.AppView<any>,parentIndex:number,parentElement:any) {
     super(View_QrScannerComponent0,renderType_QrScannerComponent,import6.ViewType.COMPONENT,viewUtils,parentView,parentIndex,parentElement,import7.ChangeDetectorStatus.CheckAlways);
   }
   createInternal(rootSelector:string):import8.ComponentRef<any> {
     const parentRenderNode:any = this.renderer.createViewRoot(this.parentElement);
     this._text_0 = this.renderer.createText(parentRenderNode,'\n    ',(null as any));
-    this._el_1 = import3.createRenderElement(this.renderer,parentRenderNode,'canvas',new import3.InlineArray8(6,'height','480','id','qr-canvas','width','640'),(null as any));
+    this._el_1 = import3.createRenderElement(this.renderer,parentRenderNode,'canvas',new import3.InlineArray8(8,'height','480','hidden','true','id','qr-canvas','width','640'),(null as any));
     this._text_2 = this.renderer.createText(parentRenderNode,'\n    ',(null as any));
-    this._el_3 = import3.createRenderElement(this.renderer,parentRenderNode,'div',new import3.InlineArray2(2,'id','result'),(null as any));
+    this._el_3 = import3.createRenderElement(this.renderer,parentRenderNode,'div',new import3.InlineArray2(2,'id','outdiv'),(null as any));
     this._text_4 = this.renderer.createText(parentRenderNode,'\n    ',(null as any));
-    this._el_5 = import3.createRenderElement(this.renderer,parentRenderNode,'div',new import3.InlineArray2(2,'id','outdiv'),(null as any));
-    this._text_6 = this.renderer.createText(parentRenderNode,'\n    ',(null as any));
-    this._el_7 = import3.createRenderElement(this.renderer,parentRenderNode,'div',new import3.InlineArray2(2,'id','mainbody'),(null as any));
-    this._text_8 = this.renderer.createText(parentRenderNode,'\n',(null as any));
+    this._el_5 = import3.createRenderElement(this.renderer,parentRenderNode,'div',new import3.InlineArray2(2,'id','mainbody'),(null as any));
+    this._text_6 = this.renderer.createText(parentRenderNode,'\n',(null as any));
     this.init((null as any),((<any>this.renderer).directRenderer? (null as any): [
       this._text_0,
       this._el_1,
@@ -120,9 +117,7 @@ export class View_QrScannerComponent0 extends import2.AppView<import0.QrScannerC
       this._el_3,
       this._text_4,
       this._el_5,
-      this._text_6,
-      this._el_7,
-      this._text_8
+      this._text_6
     ]
     ),(null as any));
     return (null as any);

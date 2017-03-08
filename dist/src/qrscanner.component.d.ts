@@ -1,6 +1,6 @@
-import { OnInit, EventEmitter } from '@angular/core';
+import { OnInit, EventEmitter, OnDestroy } from '@angular/core';
 import { QRCode } from './qrdecode/qrcode';
-export declare class QrScannerComponent implements OnInit {
+export declare class QrScannerComponent implements OnInit, OnDestroy {
     facing: string;
     onRead: EventEmitter<string>;
     gCanvas: HTMLCanvasElement;
@@ -16,6 +16,8 @@ export declare class QrScannerComponent implements OnInit {
     stop: boolean;
     constructor();
     ngOnInit(): void;
+    ngOnDestroy(): void;
+    stopScanning(): void;
     isCanvasSupported(): boolean;
     initCanvas(w: number, h: number): void;
     setwebcam2(options: any): void;

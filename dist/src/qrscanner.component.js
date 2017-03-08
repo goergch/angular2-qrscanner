@@ -25,6 +25,13 @@ var QrScannerComponent = (function () {
         console.log("QR Scanner init, facing " + this.facing);
         this.load();
     };
+    QrScannerComponent.prototype.ngOnDestroy = function () {
+        this.stopScanning();
+    };
+    QrScannerComponent.prototype.stopScanning = function () {
+        this.stream.getTracks()[0].stop();
+        this.stop = true;
+    };
     QrScannerComponent.prototype.isCanvasSupported = function () {
         var elem = document.createElement('canvas');
         return !!(elem.getContext && elem.getContext('2d'));

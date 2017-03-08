@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {QRCode} from './qrdecode/qrcode'
 
 
@@ -11,7 +11,7 @@ import {QRCode} from './qrdecode/qrcode'
     <div id="mainbody"></div>
 `
 })
-export class QrScannerComponent implements OnInit {
+export class QrScannerComponent implements OnInit, OnDestroy {
 
     @Input() facing: string;
     @Output() onRead: EventEmitter<string> = new EventEmitter<string>();
@@ -34,6 +34,16 @@ export class QrScannerComponent implements OnInit {
   ngOnInit(): void {
       console.log("QR Scanner init, facing " + this.facing);
       this.load();
+  }
+
+  ngOnDestroy(){
+    this.stopScanning();
+  }
+
+  stopScanning(): void{
+      this.stream.getTracks()[0].stop();
+      this.stop = true;
+
   }
 
   isCanvasSupported(): boolean{
