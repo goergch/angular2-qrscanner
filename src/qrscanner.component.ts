@@ -17,7 +17,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     @Output() onRead: EventEmitter<string> = new EventEmitter<string>();
     gCanvas: HTMLCanvasElement;
     gCtx: CanvasRenderingContext2D;
-    qrCode = new QRCode();
+    qrCode: QRCode = null;
     stype= 0;
     gUM = false;
     vidhtml = '<video id="v" autoplay></video>';
@@ -186,6 +186,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
     var self = this;
     this.stop = false;
+    this.stype= 0;
     function read(a: string):void {
       self.onRead.emit(a);
       self.stream.getTracks()[0].stop();
@@ -195,6 +196,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     if(this.isCanvasSupported())
     {
         this.initCanvas(800, 600);
+        this.qrCode = new QRCode();
         this.qrCode.myCallback = read;
 
         this.setwebcam();

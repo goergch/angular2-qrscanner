@@ -13,7 +13,7 @@ var qrcode_1 = require("./qrdecode/qrcode");
 var QrScannerComponent = (function () {
     function QrScannerComponent() {
         this.onRead = new core_1.EventEmitter();
-        this.qrCode = new qrcode_1.QRCode();
+        this.qrCode = null;
         this.stype = 0;
         this.gUM = false;
         this.vidhtml = '<video id="v" autoplay></video>';
@@ -142,6 +142,7 @@ var QrScannerComponent = (function () {
     QrScannerComponent.prototype.load = function () {
         var self = this;
         this.stop = false;
+        this.stype = 0;
         function read(a) {
             self.onRead.emit(a);
             self.stream.getTracks()[0].stop();
@@ -149,6 +150,7 @@ var QrScannerComponent = (function () {
         }
         if (this.isCanvasSupported()) {
             this.initCanvas(800, 600);
+            this.qrCode = new qrcode_1.QRCode();
             this.qrCode.myCallback = read;
             this.setwebcam();
         }
