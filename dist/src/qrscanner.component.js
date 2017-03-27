@@ -28,6 +28,9 @@ var QrScannerComponent = (function () {
     QrScannerComponent.prototype.ngOnDestroy = function () {
         this.stopScanning();
     };
+    QrScannerComponent.prototype.startScanning = function () {
+        this.load();
+    };
     QrScannerComponent.prototype.stopScanning = function () {
         this.stream.getTracks()[0].stop();
         this.stop = true;
@@ -138,6 +141,7 @@ var QrScannerComponent = (function () {
     };
     QrScannerComponent.prototype.load = function () {
         var self = this;
+        this.stop = false;
         function read(a) {
             self.onRead.emit(a);
             self.stream.getTracks()[0].stop();

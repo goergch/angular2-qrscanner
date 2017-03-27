@@ -17,6 +17,7 @@ export declare class QrScannerComponent implements OnInit, OnDestroy {
     constructor();
     ngOnInit(): void;
     ngOnDestroy(): void;
+    startScanning(): void;
     stopScanning(): void;
     isCanvasSupported(): boolean;
     initCanvas(w: number, h: number): void;
