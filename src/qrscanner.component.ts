@@ -40,6 +40,10 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     this.stopScanning();
   }
 
+  startScanning(): void{
+      this.load();
+  }
+
   stopScanning(): void{
       this.stream.getTracks()[0].stop();
       this.stop = true;
@@ -181,6 +185,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   {
 
     var self = this;
+    this.stop = false;
     function read(a: string):void {
       self.onRead.emit(a);
       self.stream.getTracks()[0].stop();
