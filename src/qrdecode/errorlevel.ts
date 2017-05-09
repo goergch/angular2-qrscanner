@@ -1,8 +1,8 @@
 /*
-  Ported to JavaScript by Lazar Laszlo 2011 
-  
+  Ported to JavaScript by Lazar Laszlo 2011
+
   lazarsoft@gmail.com, www.lazarsoft.info
-  
+
 */
 
 /*
@@ -24,13 +24,13 @@
 
 export class ErrorCorrectionLevel{
 
-	static forBits=function( bits:any)
+	static forBits( bits:any)
 	{
-		if (bits < 0 || bits >= ErrorCorrectionLevel.FOR_BITS.length)
+		if (bits < 0 || bits >= this.FOR_BITS.length)
 		{
 			throw "ArgumentException";
 		}
-		return ErrorCorrectionLevel.FOR_BITS[bits];
+		return this.FOR_BITS[bits];
 	}
 
 	static L = new ErrorCorrectionLevel(0, 0x01, "L");
@@ -58,7 +58,7 @@ export class ErrorCorrectionLevel{
 	{
 		return this.name;
 	};
-	ordinal=function()
+	ordinal()
 	{
 		return this.ordinal_Renamed_Field;
 	}

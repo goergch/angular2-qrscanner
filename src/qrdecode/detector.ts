@@ -1,8 +1,8 @@
 /*
-  Ported to JavaScript by Lazar Laszlo 2011 
-  
+  Ported to JavaScript by Lazar Laszlo 2011
+
   lazarsoft@gmail.com, www.lazarsoft.info
-  
+
 */
 
 /*
@@ -91,7 +91,7 @@ export class PerspectiveTransform{
 		return new PerspectiveTransform(this.a11 * other.a11 + this.a21 * other.a12 + this.a31 * other.a13, this.a11 * other.a21 + this.a21 * other.a22 + this.a31 * other.a23, this.a11 * other.a31 + this.a21 * other.a32 + this.a31 * other.a33, this.a12 * other.a11 + this.a22 * other.a12 + this.a32 * other.a13, this.a12 * other.a21 + this.a22 * other.a22 + this.a32 * other.a23, this.a12 * other.a31 + this.a22 * other.a32 + this.a32 * other.a33, this.a13 * other.a11 + this.a23 * other.a12 +this.a33 * other.a13, this.a13 * other.a21 + this.a23 * other.a22 + this.a33 * other.a23, this.a13 * other.a31 + this.a23 * other.a32 + this.a33 * other.a33);
 	}
 
-	static quadrilateralToQuadrilateral=function( x0: any,  y0: any,  x1: any,  y1: any,  x2: any,  y2: any,  x3: any,  y3: any
+	static quadrilateralToQuadrilateral( x0: any,  y0: any,  x1: any,  y1: any,  x2: any,  y2: any,  x3: any,  y3: any
 		,  x0p: any,  y0p: any,  x1p: any,  y1p: any,  x2p: any,  y2p: any,  x3p: any,  y3p: any)
 	{
 
@@ -100,7 +100,7 @@ export class PerspectiveTransform{
 		return sToQ.times(qToS);
 	}
 
-	static squareToQuadrilateral=function( x0:any,  y0:any,  x1:any,  y1:any,  x2:any,  y2:any,  x3:any,  y3:any)
+	static squareToQuadrilateral( x0:any,  y0:any,  x1:any,  y1:any,  x2:any,  y2:any,  x3:any,  y3:any)
 	{
 		var dy2 = y3 - y2;
 		var dy3 = y0 - y1 + y2 - y3;
@@ -120,10 +120,11 @@ export class PerspectiveTransform{
 			return new PerspectiveTransform(x1 - x0 + a13 * x1, x3 - x0 + a23 * x3, x0, y1 - y0 + a13 * y1, y3 - y0 + a23 * y3, y0, a13, a23, 1.0);
 		}
 	}
-	static quadrilateralToSquare=function( x0:any,  y0:any,  x1:any,  y1:any,  x2:any,  y2:any,  x3:any,  y3:any)
+	static quadrilateralToSquare( x0:any,  y0:any,  x1:any,  y1:any,  x2:any,  y2:any,  x3:any,  y3:any)
 	{
 		// Here, the adjoint serves as the inverse:
-		return this.squareToQuadrilateral(x0, y0, x1, y1, x2, y2, x3, y3).buildAdjoint();
+		const t = this.squareToQuadrilateral(x0, y0, x1, y1, x2, y2, x3, y3);
+		return t.buildAdjoint();
 	}
 }
 

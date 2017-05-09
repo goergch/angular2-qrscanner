@@ -1,8 +1,8 @@
 /*
-  Ported to JavaScript by Lazar Laszlo 2011 
-  
+  Ported to JavaScript by Lazar Laszlo 2011
+
   lazarsoft@gmail.com, www.lazarsoft.info
-  
+
 */
 
 /*
@@ -172,7 +172,7 @@ export class Version{
 
 	static VERSIONS = Version.buildVersions();
 
-	static getVersionForNumber=function( versionNumber: any)
+	static getVersionForNumber( versionNumber: any)
 	{
 		if (versionNumber < 1 || versionNumber > 40)
 		{
@@ -181,7 +181,7 @@ export class Version{
 		return Version.VERSIONS[versionNumber - 1];
 	}
 
-	static getProvisionalVersionForDimension=function(dimension: any)
+	static getProvisionalVersionForDimension(dimension: any)
 	{
 		if (dimension % 4 != 1)
 		{
@@ -197,7 +197,7 @@ export class Version{
 		}
 	}
 
-	static decodeVersionInformation=function( versionBits: any)
+	static decodeVersionInformation( versionBits: any)
 	{
 		var bestDifference = 0xffffffff;
 		var bestVersion = 0;
