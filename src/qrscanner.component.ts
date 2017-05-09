@@ -184,7 +184,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
         }
         if (this.isCanvasSupported()) {
-            this.initCanvas(800, 600);
+            this.initCanvas(this.height, this.width);
             this.qrCode = new QRCode();
             this.qrCode.myCallback = read;
 

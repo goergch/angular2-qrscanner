@@ -143,7 +143,7 @@ var QrScannerComponent = (function () {
             self.stop = true;
         }
         if (this.isCanvasSupported()) {
-            this.initCanvas(800, 600);
+            this.initCanvas(this.height, this.width);
             this.qrCode = new qrcode_1.QRCode();
             this.qrCode.myCallback = read;
             this.setwebcam();
