@@ -116,6 +116,8 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         var n: any = navigator;
         document.getElementById("outdiv").innerHTML = this.vidhtml;
         this.v = document.getElementById("v") as HTMLVideoElement;
+        this.v.setAttribute('height', this.height.toString());
+        this.v.setAttribute('height', this.width.toString());
 
 
         if (n.getUserMedia) {
