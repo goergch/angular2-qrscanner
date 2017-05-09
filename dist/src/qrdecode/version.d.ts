@@ -29,8 +29,8 @@ export declare class Version {
     getECBlocksForLevel: (ecLevel: any) => any;
     static VERSION_DECODE_INFO: number[];
     static VERSIONS: Version[];
-    static getVersionForNumber: (versionNumber: any) => Version;
-    static getProvisionalVersionForDimension: (dimension: any) => Version;
-    static decodeVersionInformation: (versionBits: any) => any;
+    static getVersionForNumber(versionNumber: any): Version;
+    static getProvisionalVersionForDimension(dimension: any): Version;
+    static decodeVersionInformation(versionBits: any): Version;
     static buildVersions(): Version[];
 }

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var detector_1 = require("./detector");
 var decoder_1 = require("./decoder");
 /*
@@ -125,6 +126,7 @@ var QRCode = (function () {
                             minmax[ax][ay][1] = target;
                     }
                 }
+                //minmax[ax][ay][0] = (minmax[ax][ay][0] + minmax[ax][ay][1]) / 2;
             }
         }
         var middle = new Array(numSqrtArea);
@@ -134,7 +136,9 @@ var QRCode = (function () {
         for (var ay = 0; ay < numSqrtArea; ay++) {
             for (var ax = 0; ax < numSqrtArea; ax++) {
                 middle[ax][ay] = Math.floor((minmax[ax][ay][0] + minmax[ax][ay][1]) / 2);
+                //Console.out.print(middle[ax][ay] + ",");
             }
+            //Console.out.println("");
         }
         //Console.out.println("");
         return middle;

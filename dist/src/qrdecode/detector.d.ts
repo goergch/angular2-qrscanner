@@ -13,9 +13,9 @@ export declare class PerspectiveTransform {
     transformPoints2: (xValues: any, yValues: any) => void;
     buildAdjoint: () => PerspectiveTransform;
     times: (other: any) => PerspectiveTransform;
-    static quadrilateralToQuadrilateral: (x0: any, y0: any, x1: any, y1: any, x2: any, y2: any, x3: any, y3: any, x0p: any, y0p: any, x1p: any, y1p: any, x2p: any, y2p: any, x3p: any, y3p: any) => any;
-    static squareToQuadrilateral: (x0: any, y0: any, x1: any, y1: any, x2: any, y2: any, x3: any, y3: any) => PerspectiveTransform;
-    static quadrilateralToSquare: (x0: any, y0: any, x1: any, y1: any, x2: any, y2: any, x3: any, y3: any) => any;
+    static quadrilateralToQuadrilateral(x0: any, y0: any, x1: any, y1: any, x2: any, y2: any, x3: any, y3: any, x0p: any, y0p: any, x1p: any, y1p: any, x2p: any, y2p: any, x3p: any, y3p: any): PerspectiveTransform;
+    static squareToQuadrilateral(x0: any, y0: any, x1: any, y1: any, x2: any, y2: any, x3: any, y3: any): PerspectiveTransform;
+    static quadrilateralToSquare(x0: any, y0: any, x1: any, y1: any, x2: any, y2: any, x3: any, y3: any): PerspectiveTransform;
 }
 export declare class DetectorResult {
     bits: any;
@@ -35,7 +35,7 @@ export declare class Detector {
     distance: (pattern1: any, pattern2: any) => number;
     computeDimension: (topLeft: any, topRight: any, bottomLeft: any, moduleSize: any) => number;
     findAlignmentInRegion: (overallEstModuleSize: any, estAlignmentX: any, estAlignmentY: any, allowanceFactor: any) => any;
-    createTransform: (topLeft: any, topRight: any, bottomLeft: any, alignmentPattern: any, dimension: any) => any;
+    createTransform: (topLeft: any, topRight: any, bottomLeft: any, alignmentPattern: any, dimension: any) => PerspectiveTransform;
     sampleGrid: (image: any, transform: any, dimension: any) => any;
     processFinderPatternInfo(info: any): any;
     detect: () => any;

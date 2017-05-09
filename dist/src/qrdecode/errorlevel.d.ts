@@ -1,5 +1,5 @@
 export declare class ErrorCorrectionLevel {
-    static forBits: (bits: any) => ErrorCorrectionLevel;
+    static forBits(bits: any): ErrorCorrectionLevel;
     static L: ErrorCorrectionLevel;
     static M: ErrorCorrectionLevel;
     static Q: ErrorCorrectionLevel;
@@ -11,5 +11,5 @@ export declare class ErrorCorrectionLevel {
     constructor(ordinal: any, bits: any, name: any);
     readonly Bits: any;
     readonly Name: any;
-    ordinal: () => any;
+    ordinal(): any;
 }

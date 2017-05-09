@@ -1,1 +1,1 @@
-{"summaries":[{"symbol":{"__symbol":0},"metadata":{"__symbolic":"class"}}],"symbols":[{"__symbol":0,"name":"Decoder","filePath":"/Users/goergch/workspaces/angular2-qrscanner/src/qrdecode/decoder.d.ts"}]}
+{"summaries":[{"symbol":{"__symbol":0,"members":[]},"metadata":{"__symbolic":"class","members":{"correctErrors":[{"__symbolic":"method"}]}}}],"symbols":[{"__symbol":0,"name":"Decoder","filePath":"/home/tulkas/Public/Projects/gentalia/angular2-qrscanner/src/qrdecode/decoder.d.ts"}]}

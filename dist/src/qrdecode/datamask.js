@@ -1,10 +1,11 @@
+"use strict";
 /*
   Ported to JavaScript by Lazar Laszlo 2011
   
   lazarsoft@gmail.com, www.lazarsoft.info
   
 */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
 *
 * Copyright 2007 ZXing authors

@@ -1,10 +1,11 @@
+"use strict";
 /*
   Ported to JavaScript by Lazar Laszlo 2011
   
   lazarsoft@gmail.com, www.lazarsoft.info
   
 */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
 *
 * Copyright 2007 ZXing authors
@@ -93,6 +94,7 @@ var ReedSolomonDecoder = (function () {
                 var scale = this.field.multiply(r.getCoefficient(r.Degree), dltInverse);
                 q = q.addOrSubtract(this.field.buildMonomial(degreeDiff, scale));
                 r = r.addOrSubtract(rLast.multiplyByMonomial(degreeDiff, scale));
+                //r.EXE();
             }
             s = q.multiply1(sLast).addOrSubtract(sLastLast);
             t = q.multiply1(tLast).addOrSubtract(tLastLast);

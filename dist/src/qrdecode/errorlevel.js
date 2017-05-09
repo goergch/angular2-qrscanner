@@ -1,10 +1,11 @@
+"use strict";
 /*
   Ported to JavaScript by Lazar Laszlo 2011
-  
+
   lazarsoft@gmail.com, www.lazarsoft.info
-  
+
 */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
 *
 * Copyright 2007 ZXing authors
@@ -23,13 +24,16 @@
 */
 var ErrorCorrectionLevel = (function () {
     function ErrorCorrectionLevel(ordinal, bits, name) {
-        this.ordinal = function () {
-            return this.ordinal_Renamed_Field;
-        };
         this.ordinal_Renamed_Field = ordinal;
         this.bits = bits;
         this.name = name;
     }
+    ErrorCorrectionLevel.forBits = function (bits) {
+        if (bits < 0 || bits >= this.FOR_BITS.length) {
+            throw "ArgumentException";
+        }
+        return this.FOR_BITS[bits];
+    };
     Object.defineProperty(ErrorCorrectionLevel.prototype, "Bits", {
         get: function () {
             return this.bits;
@@ -46,14 +50,11 @@ var ErrorCorrectionLevel = (function () {
         configurable: true
     });
     ;
+    ErrorCorrectionLevel.prototype.ordinal = function () {
+        return this.ordinal_Renamed_Field;
+    };
     return ErrorCorrectionLevel;
 }());
-ErrorCorrectionLevel.forBits = function (bits) {
-    if (bits < 0 || bits >= ErrorCorrectionLevel.FOR_BITS.length) {
-        throw "ArgumentException";
-    }
-    return ErrorCorrectionLevel.FOR_BITS[bits];
-};
 ErrorCorrectionLevel.L = new ErrorCorrectionLevel(0, 0x01, "L");
 ErrorCorrectionLevel.M = new ErrorCorrectionLevel(1, 0x00, "M");
 ErrorCorrectionLevel.Q = new ErrorCorrectionLevel(2, 0x03, "Q");

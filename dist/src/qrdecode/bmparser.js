@@ -1,10 +1,11 @@
+"use strict";
 /*
   Ported to JavaScript by Lazar Laszlo 2011
   
   lazarsoft@gmail.com, www.lazarsoft.info
   
 */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var datamask_1 = require("./datamask");
 var formatinf_1 = require("./formatinf");
 var version_1 = require("./version");

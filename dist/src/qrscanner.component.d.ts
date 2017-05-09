@@ -1,6 +1,8 @@
 import { OnInit, EventEmitter, OnDestroy } from '@angular/core';
 import { QRCode } from './qrdecode/qrcode';
 export declare class QrScannerComponent implements OnInit, OnDestroy {
+    width: number;
+    height: number;
     facing: string;
     onRead: EventEmitter<string>;
     gCanvas: HTMLCanvasElement;

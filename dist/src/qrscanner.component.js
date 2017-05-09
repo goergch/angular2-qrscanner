@@ -1,17 +1,11 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var qrcode_1 = require("./qrdecode/qrcode");
 var QrScannerComponent = (function () {
     function QrScannerComponent() {
+        this.width = 640;
+        this.height = 480;
         this.onRead = new core_1.EventEmitter();
         this.qrCode = null;
         this.stype = 0;
@@ -163,21 +157,20 @@ var QrScannerComponent = (function () {
     };
     return QrScannerComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], QrScannerComponent.prototype, "facing", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], QrScannerComponent.prototype, "onRead", void 0);
-QrScannerComponent = __decorate([
-    core_1.Component({
-        moduleId: 'module.id',
-        selector: 'qr-scanner',
-        template: "\n    <canvas id=\"qr-canvas\" width=\"640\" height=\"480\" hidden=\"true\"></canvas>\n    <div id=\"outdiv\"></div>\n    <div id=\"mainbody\"></div>\n"
-    }),
-    __metadata("design:paramtypes", [])
-], QrScannerComponent);
+QrScannerComponent.decorators = [
+    { type: core_1.Component, args: [{
+                moduleId: 'module.id',
+                selector: 'qr-scanner',
+                template: "\n    <canvas id=\"qr-canvas\" width=\"{{width}}\" height=\"{{height}}\" hidden=\"true\"></canvas>\n    <div id=\"outdiv\"></div>\n    <div id=\"mainbody\"></div>\n"
+            },] },
+];
+/** @nocollapse */
+QrScannerComponent.ctorParameters = function () { return []; };
+QrScannerComponent.propDecorators = {
+    'width': [{ type: core_1.Input },],
+    'height': [{ type: core_1.Input },],
+    'facing': [{ type: core_1.Input },],
+    'onRead': [{ type: core_1.Output },],
+};
 exports.QrScannerComponent = QrScannerComponent;
 //# sourceMappingURL=qrscanner.component.js.map
