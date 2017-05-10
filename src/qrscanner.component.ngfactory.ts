@@ -20,6 +20,11 @@ export function View_QrScannerComponent_0(l:any):import0.ɵViewDefinition {
     (l()(),import0.ɵted((null as any),['\n    '])),
     (l()(),import0.ɵeld(0,(null as any),(null as any),0,'canvas',[
       [
+        'height',
+        '480'
+      ]
+      ,
+      [
         'hidden',
         'true'
       ]
@@ -28,23 +33,14 @@ export function View_QrScannerComponent_0(l:any):import0.ɵViewDefinition {
         'id',
         'qr-canvas'
       ]
-
-    ]
-    ,[
-      [
-        8,
-        'width',
-        0
-      ]
       ,
       [
-        8,
-        'height',
-        0
+        'width',
+        '640'
       ]
 
     ]
-    ,(null as any),(null as any),(null as any),(null as any))),
+    ,(null as any),(null as any),(null as any),(null as any),(null as any))),
     (l()(),import0.ɵted((null as any),['\n    '])),
       (l()(),import0.ɵeld(0,(null as any),(null as any),0,'div',[[
         'id',
@@ -59,12 +55,7 @@ export function View_QrScannerComponent_0(l:any):import0.ɵViewDefinition {
     ],(null as any),(null as any),(null as any),(null as any),(null as any))),
     (l()(),import0.ɵted((null as any),['\n']))
   ]
-  ,(null as any),(ck,v) => {
-    var co:import1.QrScannerComponent = v.component;
-    const currVal_0:any = import0.ɵinlineInterpolate(1,'',co.width,'');
-    const currVal_1:any = import0.ɵinlineInterpolate(1,'',co.height,'');
-    ck(v,1,0,currVal_0,currVal_1);
-  });
+  ,(null as any),(null as any));
 }
 function View_QrScannerComponent_Host_0(l:any):import0.ɵViewDefinition {
   return import0.ɵvid(0,[
@@ -81,4 +72,4 @@ export const QrScannerComponentNgFactory:import0.ComponentFactory<import1.QrScan
   facing: 'facing'
 }
 ,{onRead: 'onRead'},([] as any[]));
-//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL2hvbWUvdHVsa2FzL1B1YmxpYy9Qcm9qZWN0cy9nZW50YWxpYS9hbmd1bGFyMi1xcnNjYW5uZXIvc3JjL3Fyc2Nhbm5lci5jb21wb25lbnQubmdmYWN0b3J5LnRzIiwidmVyc2lvbiI6Mywic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsibmc6Ly8vaG9tZS90dWxrYXMvUHVibGljL1Byb2plY3RzL2dlbnRhbGlhL2FuZ3VsYXIyLXFyc2Nhbm5lci9zcmMvcXJzY2FubmVyLmNvbXBvbmVudC50cyIsIm5nOi8vL2hvbWUvdHVsa2FzL1B1YmxpYy9Qcm9qZWN0cy9nZW50YWxpYS9hbmd1bGFyMi1xcnNjYW5uZXIvc3JjL3Fyc2Nhbm5lci5jb21wb25lbnQudHMuUXJTY2FubmVyQ29tcG9uZW50Lmh0bWwiLCJuZzovLy9ob21lL3R1bGthcy9QdWJsaWMvUHJvamVjdHMvZ2VudGFsaWEvYW5ndWxhcjItcXJzY2FubmVyL3NyYy9xcnNjYW5uZXIuY29tcG9uZW50LnRzLlFyU2Nhbm5lckNvbXBvbmVudF9Ib3N0Lmh0bWwiXSwic291cmNlc0NvbnRlbnQiOlsiICIsIlxuICAgIDxjYW52YXMgaWQ9XCJxci1jYW52YXNcIiB3aWR0aD1cInt7d2lkdGh9fVwiIGhlaWdodD1cInt7aGVpZ2h0fX1cIiBoaWRkZW49XCJ0cnVlXCI+PC9jYW52YXM+XG4gICAgPGRpdiBpZD1cIm91dGRpdlwiPjwvZGl2PlxuICAgIDxkaXYgaWQ9XCJtYWluYm9keVwiPjwvZGl2PlxuIiwiPHFyLXNjYW5uZXI+PC9xci1zY2FubmVyPiJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUNBQTtJQUNJO01BQUE7UUFBQTtRQUFBO01BQUE7O01BQUE7UUFBQTtRQUFBO01BQUE7O0lBQUE7S0FBQTtNQUFBO1FBQUE7UUFBQTtRQUFBO01BQUE7O01BQUE7UUFBQTtRQUFBO1FBQUE7TUFBQTs7SUFBQTtLQUFBO0lBQW9GO01BQ3BGO1FBQUE7UUFBQTtNQUFBO0lBQUE7SUFBdUI7TUFDdkI7UUFBQTtRQUFBO01BQUE7SUFBQTtJQUF5Qjs7OztJQUZGO0lBQWtCO0lBQXpDLFNBQXVCLFVBQWtCLFNBQXpDOzs7OztJQ0RKO2dCQUFBOzs7SUFBQTs7Ozs7Ozs7In0=
+//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL2hvbWUvdHVsa2FzL1B1YmxpYy9Qcm9qZWN0cy9nZW50YWxpYS9hbmd1bGFyMi1xcnNjYW5uZXIvc3JjL3Fyc2Nhbm5lci5jb21wb25lbnQubmdmYWN0b3J5LnRzIiwidmVyc2lvbiI6Mywic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsibmc6Ly8vaG9tZS90dWxrYXMvUHVibGljL1Byb2plY3RzL2dlbnRhbGlhL2FuZ3VsYXIyLXFyc2Nhbm5lci9zcmMvcXJzY2FubmVyLmNvbXBvbmVudC50cyIsIm5nOi8vL2hvbWUvdHVsa2FzL1B1YmxpYy9Qcm9qZWN0cy9nZW50YWxpYS9hbmd1bGFyMi1xcnNjYW5uZXIvc3JjL3Fyc2Nhbm5lci5jb21wb25lbnQudHMuUXJTY2FubmVyQ29tcG9uZW50Lmh0bWwiLCJuZzovLy9ob21lL3R1bGthcy9QdWJsaWMvUHJvamVjdHMvZ2VudGFsaWEvYW5ndWxhcjItcXJzY2FubmVyL3NyYy9xcnNjYW5uZXIuY29tcG9uZW50LnRzLlFyU2Nhbm5lckNvbXBvbmVudF9Ib3N0Lmh0bWwiXSwic291cmNlc0NvbnRlbnQiOlsiICIsIlxuICAgIDxjYW52YXMgaWQ9XCJxci1jYW52YXNcIiB3aWR0aD1cIjY0MFwiIGhlaWdodD1cIjQ4MFwiIGhpZGRlbj1cInRydWVcIj48L2NhbnZhcz5cbiAgICA8ZGl2IGlkPVwib3V0ZGl2XCI+PC9kaXY+XG4gICAgPGRpdiBpZD1cIm1haW5ib2R5XCI+PC9kaXY+XG4iLCI8cXItc2Nhbm5lcj48L3FyLXNjYW5uZXI+Il0sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQ0FBO0lBQ0k7TUFBQTtRQUFBO1FBQUE7TUFBQTs7TUFBQTtRQUFBO1FBQUE7TUFBQTs7TUFBQTtRQUFBO1FBQUE7TUFBQTs7TUFBQTtRQUFBO1FBQUE7TUFBQTs7SUFBQTtLQUFBO0lBQXVFO01BQ3ZFO1FBQUE7UUFBQTtNQUFBO0lBQUE7SUFBdUI7TUFDdkI7UUFBQTtRQUFBO01BQUE7SUFBQTtJQUF5Qjs7Ozs7O0lDSDdCO2dCQUFBOzs7SUFBQTs7Ozs7Ozs7In0=

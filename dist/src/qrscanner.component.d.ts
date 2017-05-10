@@ -10,7 +10,6 @@ export declare class QrScannerComponent implements OnInit, OnDestroy {
     qrCode: QRCode;
     stype: number;
     gUM: boolean;
-    vidhtml: string;
     v: HTMLVideoElement;
     webkit: boolean;
     moz: boolean;

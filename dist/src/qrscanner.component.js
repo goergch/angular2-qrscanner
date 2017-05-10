@@ -10,7 +10,6 @@ var QrScannerComponent = (function () {
         this.qrCode = null;
         this.stype = 0;
         this.gUM = false;
-        this.vidhtml = '<video id="v" autoplay></video>';
         this.webkit = false;
         this.moz = false;
         this.stop = false;
@@ -34,22 +33,24 @@ var QrScannerComponent = (function () {
         return !!(elem.getContext && elem.getContext('2d'));
     };
     QrScannerComponent.prototype.initCanvas = function (w, h) {
-        this.gCanvas = document.getElementById("qr-canvas");
-        this.gCanvas.style.width = w + "px";
-        this.gCanvas.style.height = h + "px";
+        this.gCanvas = document.getElementById('qr-canvas');
+        this.gCanvas.style.width = w + 'px';
+        this.gCanvas.style.height = h + 'px';
         this.gCanvas.width = w;
         this.gCanvas.height = h;
-        this.gCtx = this.gCanvas.getContext("2d");
+        this.gCtx = this.gCanvas.getContext('2d');
         this.gCtx.clearRect(0, 0, w, h);
     };
     QrScannerComponent.prototype.setwebcam2 = function (options) {
         var self = this;
         function success(stream) {
             self.stream = stream;
-            if (self.webkit || self.moz)
+            if (self.webkit || self.moz) {
                 self.v.src = window.URL.createObjectURL(stream);
-            else
+            }
+            else {
                 self.v.src = stream;
+            }
             self.gUM = true;
             setTimeout(captureToCanvas, 500);
         }
@@ -58,21 +59,13 @@ var QrScannerComponent = (function () {
             return;
         }
         function captureToCanvas() {
-            if (self.stop == true)
+            if (self.stop === true || self.stype !== 1) {
                 return;
-            if (self.stype != 1)
-                return;
+            }
             if (self.gUM) {
                 try {
                     self.gCtx.drawImage(self.v, 0, 0);
-                    try {
-                        self.qrCode.decode(self.gCanvas);
-                    }
-                    catch (e) {
-                        console.log(e);
-                        setTimeout(captureToCanvas, 500);
-                    }
-                    ;
+                    self.qrCode.decode(self.gCanvas);
                 }
                 catch (e) {
                     console.log(e);
@@ -81,15 +74,13 @@ var QrScannerComponent = (function () {
                 ;
             }
         }
-        console.log(options);
-        // document.getElementById("result").innerHTML="- scanning -";
-        if (this.stype == 1) {
+        if (this.stype === 1) {
             setTimeout(captureToCanvas, 500);
             return;
         }
         var n = navigator;
-        document.getElementById("outdiv").innerHTML = this.vidhtml;
-        this.v = document.getElementById("v");
+        document.getElementById('outdiv').innerHTML = "<video id=\"v\" autoplay height=\"" + this.height + "\" width=\"" + this.width + "\"></video>";
+        this.v = document.getElementById('v');
         if (n.getUserMedia) {
             this.webkit = true;
             n.getUserMedia({ video: options, audio: false }, success, error);
@@ -102,8 +93,6 @@ var QrScannerComponent = (function () {
             this.moz = true;
             n.mozGetUserMedia({ video: options, audio: false }, success, error);
         }
-        // document.getElementById("qrimg").style.opacity=0.2;
-        // document.getElementById("webcamimg").style.opacity=1.0;
         this.stype = 1;
         setTimeout(captureToCanvas, 500);
     };
@@ -111,17 +100,15 @@ var QrScannerComponent = (function () {
         var options = true;
         if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
             try {
-                var self = this;
+                var self_1 = this;
                 navigator.mediaDevices.enumerateDevices()
                     .then(function (devices) {
                     devices.forEach(function (device) {
-                        if (device.kind === 'videoinput') {
-                            if (device.label.toLowerCase().search("back") > -1)
-                                options = { 'deviceId': { 'exact': device.deviceId }, 'facingMode': 'environment' };
+                        if (device.kind === 'videoinput' && device.label.toLowerCase().search('back') > -1) {
+                            options = { 'deviceId': { 'exact': device.deviceId }, 'facingMode': 'environment' };
                         }
-                        console.log(device.kind + ": " + device.label + " id = " + device.deviceId + "facingMode = " + device);
                     });
-                    self.setwebcam2(options);
+                    self_1.setwebcam2(options);
                 });
             }
             catch (e) {
@@ -129,7 +116,7 @@ var QrScannerComponent = (function () {
             }
         }
         else {
-            console.log("no navigator.mediaDevices.enumerateDevices");
+            console.log('no navigator.mediaDevices.enumerateDevices');
             this.setwebcam2(options);
         }
     };
@@ -149,10 +136,8 @@ var QrScannerComponent = (function () {
             this.setwebcam();
         }
         else {
-            document.getElementById("mainbody").style.display = "inline";
-            document.getElementById("mainbody").innerHTML = '<p id="mp1">QR code scanner for HTML5 capable browsers</p><br>' +
-                '<br><p id="mp2">sorry your browser is not supported</p><br><br>' +
-                '<p id="mp1">try <a href="http://www.mozilla.com/firefox"><img src="firefox.png"/></a> or <a href="http://chrome.google.com"><img src="chrome_logo.gif"/></a> or <a href="http://www.opera.com"><img src="Opera-logo.png"/></a></p>';
+            document.getElementById('mainbody').style.display = 'inline';
+            document.getElementById('mainbody').innerHTML = "\n                <p id=\"mp1\">QR code scanner for HTML5 capable browsers</p><br>\n                <br><p id=\"mp2\">sorry your browser is not supported</p><br><br>\n                <p id=\"mp1\">try\n                    <a href=\"http://www.mozilla.com/firefox\"><img src=\"firefox.png\"/></a> or\n                    <a href=\"http://chrome.google.com\"><img src=\"chrome_logo.gif\"/></a> or\n                    <a href=\"http://www.opera.com\"><img src=\"Opera-logo.png\"/></a>\n                </p>";
         }
     };
     return QrScannerComponent;
@@ -161,7 +146,7 @@ QrScannerComponent.decorators = [
     { type: core_1.Component, args: [{
                 moduleId: 'module.id',
                 selector: 'qr-scanner',
-                template: "\n    <canvas id=\"qr-canvas\" width=\"{{width}}\" height=\"{{height}}\" hidden=\"true\"></canvas>\n    <div id=\"outdiv\"></div>\n    <div id=\"mainbody\"></div>\n"
+                template: "\n    <canvas id=\"qr-canvas\" width=\"640\" height=\"480\" hidden=\"true\"></canvas>\n    <div id=\"outdiv\"></div>\n    <div id=\"mainbody\"></div>\n"
             },] },
 ];
 /** @nocollapse */
