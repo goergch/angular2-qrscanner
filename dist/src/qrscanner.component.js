@@ -64,7 +64,7 @@ var QrScannerComponent = (function () {
             }
             if (self.gUM) {
                 try {
-                    self.gCtx.drawImage(self.v, 0, 0, this.width, this.height);
+                    self.gCtx.drawImage(self.v, 0, 0, self.width, self.height);
                     self.qrCode.decode(self.gCanvas);
                 }
                 catch (e) {

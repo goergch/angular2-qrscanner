@@ -89,7 +89,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
             }
             if (self.gUM) {
                 try {
-                    self.gCtx.drawImage(self.v, 0, 0, this.width, this.height);
+                    self.gCtx.drawImage(self.v, 0, 0, self.width, self.height);
                     self.qrCode.decode(self.gCanvas);
                 } catch (e) {
                     console.log(e);
