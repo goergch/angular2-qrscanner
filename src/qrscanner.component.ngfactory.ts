@@ -7,69 +7,135 @@
 
 
 import * as import0 from '@angular/core';
-import * as import1 from './qrscanner.component';
-const styles_QrScannerComponent:any[] = ([] as any[]);
+import * as import1 from '@angular/common';
+import * as import2 from './qrscanner.component';
+const styles_QrScannerComponent:any[] = ['[_nghost-%COMP%]   videoWrapper[_ngcontent-%COMP%] {height: auto; width: 100%;}'];
 export const RenderType_QrScannerComponent:import0.RendererType2 = import0.ɵcrt({
-  encapsulation: 2,
+  encapsulation: 0,
   styles: styles_QrScannerComponent,
   data: {}
 }
 );
-export function View_QrScannerComponent_0(l:any):import0.ɵViewDefinition {
+function View_QrScannerComponent_1(l:any):import0.ɵViewDefinition {
   return import0.ɵvid(0,[
-    (l()(),import0.ɵted((null as any),['\n    '])),
-    (l()(),import0.ɵeld(0,(null as any),(null as any),0,'canvas',[
+    (l()(),import0.ɵeld(0,(null as any),(null as any),5,(null as any),(null as any),(null as any),(null as any),(null as any),(null as any),(null as any))),
+    (l()(),import0.ɵted((null as any),['\n                '])),
+    (l()(),import0.ɵeld(0,[
       [
-        'height',
-        '480'
+        2,
+        0
       ]
       ,
       [
-        'hidden',
-        'true'
-      ]
-      ,
-      [
-        'id',
-        'qr-canvas'
-      ]
-      ,
-      [
-        'width',
-        '640'
+        'qrCanvas',
+        1
       ]
 
     ]
-    ,(null as any),(null as any),(null as any),(null as any),(null as any))),
-    (l()(),import0.ɵted((null as any),['\n    '])),
-      (l()(),import0.ɵeld(0,(null as any),(null as any),0,'div',[[
-        'id',
-        'outdiv'
+      ,(null as any),0,'canvas',[[
+        'hidden',
+        'true'
       ]
     ],(null as any),(null as any),(null as any),(null as any),(null as any))),
-    (l()(),import0.ɵted((null as any),['\n    '])),
-      (l()(),import0.ɵeld(0,(null as any),(null as any),0,'div',[[
-        'id',
-        'mainbody'
+    (l()(),import0.ɵted((null as any),['\n                '])),
+    (l()(),import0.ɵeld(0,[
+      [
+        1,
+        0
       ]
-    ],(null as any),(null as any),(null as any),(null as any),(null as any))),
-    (l()(),import0.ɵted((null as any),['\n']))
+      ,
+      [
+        'videoWrapper',
+        1
+      ]
+
+    ]
+    ,(null as any),0,'div',([] as any[]),(null as any),(null as any),(null as any),(null as any),(null as any))),
+    (l()(),import0.ɵted((null as any),['\n            ']))
   ]
   ,(null as any),(null as any));
+}
+function View_QrScannerComponent_2(l:any):import0.ɵViewDefinition {
+  return import0.ɵvid(0,[
+    (l()(),import0.ɵeld(0,(null as any),(null as any),10,(null as any),(null as any),(null as any),(null as any),(null as any),(null as any),(null as any))),
+    (l()(),import0.ɵted((null as any),['\n                '])),
+    (l()(),import0.ɵeld(0,(null as any),(null as any),7,'p',([] as any[]),(null as any),(null as any),(null as any),(null as any),(null as any))),
+    (l()(),import0.ɵted((null as any),['\n                    You are using an '])),
+    (l()(),import0.ɵeld(0,(null as any),(null as any),1,'strong',([] as any[]),(null as any),(null as any),(null as any),(null as any),(null as any))),
+    (l()(),import0.ɵted((null as any),['outdated'])),
+    (l()(),import0.ɵted((null as any),[' browser.\n                    Please '])),
+      (l()(),import0.ɵeld(0,(null as any),(null as any),1,'a',[[
+        'href',
+        'http://browsehappy.com/'
+      ]
+    ],(null as any),(null as any),(null as any),(null as any),(null as any))),
+    (l()(),import0.ɵted((null as any),['upgrade your browser'])),
+    (l()(),import0.ɵted((null as any),[' to improve your experience.\n                '])),
+    (l()(),import0.ɵted((null as any),['\n            ']))
+  ]
+  ,(null as any),(null as any));
+}
+export function View_QrScannerComponent_0(l:any):import0.ɵViewDefinition {
+  return import0.ɵvid(0,[
+    import0.ɵqud(671088640,1,{videoWrapper: 0}),
+    import0.ɵqud(671088640,2,{qrCanvas: 0}),
+    (l()(),import0.ɵted((null as any),['\n        '])),
+    (l()(),import0.ɵeld(0,(null as any),(null as any),8,(null as any),(null as any),(null as any),(null as any),(null as any),(null as any),(null as any))),
+      import0.ɵdid(16384,(null as any),0,import1.NgSwitch,([] as any[]),{ngSwitch: [
+        0,
+        'ngSwitch'
+      ]
+    },(null as any)),
+    (l()(),import0.ɵted((null as any),['\n            '])),
+    (l()(),import0.ɵand(16777216,(null as any),(null as any),1,(null as any),View_QrScannerComponent_1)),
+    import0.ɵdid(16384,(null as any),0,import1.NgSwitchDefault,[
+      import0.ViewContainerRef,
+      import0.TemplateRef,
+      import1.NgSwitch
+    ]
+    ,(null as any),(null as any)),
+    (l()(),import0.ɵted((null as any),['\n            '])),
+    (l()(),import0.ɵand(16777216,(null as any),(null as any),1,(null as any),View_QrScannerComponent_2)),
+    import0.ɵdid(278528,(null as any),0,import1.NgSwitchCase,[
+      import0.ViewContainerRef,
+      import0.TemplateRef,
+      import1.NgSwitch
+    ]
+      ,{ngSwitchCase: [
+        0,
+        'ngSwitchCase'
+      ]
+    },(null as any)),
+    (l()(),import0.ɵted((null as any),['\n        ']))
+  ]
+  ,(ck,v) => {
+    var co:import2.QrScannerComponent = v.component;
+    const currVal_0:any = co.supported;
+    ck(v,4,0,currVal_0);
+    const currVal_1:any = false;
+    ck(v,10,0,currVal_1);
+  },(null as any));
 }
 function View_QrScannerComponent_Host_0(l:any):import0.ɵViewDefinition {
   return import0.ɵvid(0,[
     (l()(),import0.ɵeld(0,(null as any),(null as any),1,'qr-scanner',([] as any[]),(null as any),(null as any),(null as any),View_QrScannerComponent_0,RenderType_QrScannerComponent)),
-    import0.ɵdid(122880,(null as any),0,import1.QrScannerComponent,([] as any[]),(null as any),(null as any))
+    import0.ɵdid(245760,(null as any),0,import2.QrScannerComponent,[
+      import0.Renderer2,
+      import0.ElementRef
+    ]
+    ,(null as any),(null as any))
   ]
   ,(ck,v) => {
     ck(v,1,0);
   },(null as any));
 }
-export const QrScannerComponentNgFactory:import0.ComponentFactory<import1.QrScannerComponent> = import0.ɵccf('qr-scanner',import1.QrScannerComponent,View_QrScannerComponent_Host_0,{
+export const QrScannerComponentNgFactory:import0.ComponentFactory<import2.QrScannerComponent> = import0.ɵccf('qr-scanner',import2.QrScannerComponent,View_QrScannerComponent_Host_0,{
   width: 'width',
   height: 'height',
-  facing: 'facing'
+  facing: 'facing',
+  debug: 'debug',
+  mirror: 'mirror',
+  stopAfterScan: 'stopAfterScan'
 }
 ,{onRead: 'onRead'},([] as any[]));
-//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL2hvbWUvdHVsa2FzL1B1YmxpYy9Qcm9qZWN0cy9nZW50YWxpYS9hbmd1bGFyMi1xcnNjYW5uZXIvc3JjL3Fyc2Nhbm5lci5jb21wb25lbnQubmdmYWN0b3J5LnRzIiwidmVyc2lvbiI6Mywic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsibmc6Ly8vaG9tZS90dWxrYXMvUHVibGljL1Byb2plY3RzL2dlbnRhbGlhL2FuZ3VsYXIyLXFyc2Nhbm5lci9zcmMvcXJzY2FubmVyLmNvbXBvbmVudC50cyIsIm5nOi8vL2hvbWUvdHVsa2FzL1B1YmxpYy9Qcm9qZWN0cy9nZW50YWxpYS9hbmd1bGFyMi1xcnNjYW5uZXIvc3JjL3Fyc2Nhbm5lci5jb21wb25lbnQudHMuUXJTY2FubmVyQ29tcG9uZW50Lmh0bWwiLCJuZzovLy9ob21lL3R1bGthcy9QdWJsaWMvUHJvamVjdHMvZ2VudGFsaWEvYW5ndWxhcjItcXJzY2FubmVyL3NyYy9xcnNjYW5uZXIuY29tcG9uZW50LnRzLlFyU2Nhbm5lckNvbXBvbmVudF9Ib3N0Lmh0bWwiXSwic291cmNlc0NvbnRlbnQiOlsiICIsIlxuICAgIDxjYW52YXMgaWQ9XCJxci1jYW52YXNcIiB3aWR0aD1cIjY0MFwiIGhlaWdodD1cIjQ4MFwiIGhpZGRlbj1cInRydWVcIj48L2NhbnZhcz5cbiAgICA8ZGl2IGlkPVwib3V0ZGl2XCI+PC9kaXY+XG4gICAgPGRpdiBpZD1cIm1haW5ib2R5XCI+PC9kaXY+XG4iLCI8cXItc2Nhbm5lcj48L3FyLXNjYW5uZXI+Il0sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQ0FBO0lBQ0k7TUFBQTtRQUFBO1FBQUE7TUFBQTs7TUFBQTtRQUFBO1FBQUE7TUFBQTs7TUFBQTtRQUFBO1FBQUE7TUFBQTs7TUFBQTtRQUFBO1FBQUE7TUFBQTs7SUFBQTtLQUFBO0lBQXVFO01BQ3ZFO1FBQUE7UUFBQTtNQUFBO0lBQUE7SUFBdUI7TUFDdkI7UUFBQTtRQUFBO01BQUE7SUFBQTtJQUF5Qjs7Ozs7O0lDSDdCO2dCQUFBOzs7SUFBQTs7Ozs7Ozs7In0=
+//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiQzovVXNlcnMvSm/Do28gR29uw6dhbHZlcy93b3JrL2FuZ3VsYXIyLXFyc2Nhbm5lci9zcmMvcXJzY2FubmVyLmNvbXBvbmVudC5uZ2ZhY3RvcnkudHMiLCJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJuZzovLy9DOi9Vc2Vycy9Kb8OjbyBHb27Dp2FsdmVzL3dvcmsvYW5ndWxhcjItcXJzY2FubmVyL3NyYy9xcnNjYW5uZXIuY29tcG9uZW50LnRzIiwibmc6Ly8vQzovVXNlcnMvSm/Do28gR29uw6dhbHZlcy93b3JrL2FuZ3VsYXIyLXFyc2Nhbm5lci9zcmMvcXJzY2FubmVyLmNvbXBvbmVudC50cy5RclNjYW5uZXJDb21wb25lbnQuaHRtbCIsIm5nOi8vL0M6L1VzZXJzL0pvw6NvIEdvbsOnYWx2ZXMvd29yay9hbmd1bGFyMi1xcnNjYW5uZXIvc3JjL3Fyc2Nhbm5lci5jb21wb25lbnQudHMuUXJTY2FubmVyQ29tcG9uZW50X0hvc3QuaHRtbCJdLCJzb3VyY2VzQ29udGVudCI6WyIgIiwiXG4gICAgICAgIDxuZy1jb250YWluZXIgW25nU3dpdGNoXT1cInN1cHBvcnRlZFwiPlxuICAgICAgICAgICAgPG5nLWNvbnRhaW5lciAqbmdTd2l0Y2hEZWZhdWx0PlxuICAgICAgICAgICAgICAgIDxjYW52YXMgI3FyQ2FudmFzIGhpZGRlbj1cInRydWVcIj48L2NhbnZhcz5cbiAgICAgICAgICAgICAgICA8ZGl2ICN2aWRlb1dyYXBwZXI+PC9kaXY+XG4gICAgICAgICAgICA8L25nLWNvbnRhaW5lcj5cbiAgICAgICAgICAgIDxuZy1jb250YWluZXIgKm5nU3dpdGNoQ2FzZT1cImZhbHNlXCI+XG4gICAgICAgICAgICAgICAgPHA+XG4gICAgICAgICAgICAgICAgICAgIFlvdSBhcmUgdXNpbmcgYW4gPHN0cm9uZz5vdXRkYXRlZDwvc3Ryb25nPiBicm93c2VyLlxuICAgICAgICAgICAgICAgICAgICBQbGVhc2UgPGEgaHJlZj1cImh0dHA6Ly9icm93c2VoYXBweS5jb20vXCI+dXBncmFkZSB5b3VyIGJyb3dzZXI8L2E+IHRvIGltcHJvdmUgeW91ciBleHBlcmllbmNlLlxuICAgICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDwvbmctY29udGFpbmVyPlxuICAgICAgICA8L25nLWNvbnRhaW5lcj4iLCI8cXItc2Nhbm5lcj48L3FyLXNjYW5uZXI+Il0sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUNFWTtJQUErQjtJQUMzQjtNQUFBO1FBQUE7UUFBQTtNQUFBOztNQUFBO1FBQUE7UUFBQTtNQUFBOztJQUFBO09BQUE7UUFBQTtRQUFBO01BQUE7SUFBQTtJQUF5QztJQUN6QztNQUFBO1FBQUE7UUFBQTtNQUFBOztNQUFBO1FBQUE7UUFBQTtNQUFBOztJQUFBO0tBQUE7SUFBeUI7Ozs7OztJQUU3QjtJQUFvQztJQUNoQztJQUFHO0lBQ2tCO0lBQVE7SUFBaUI7TUFDbkM7UUFBQTtRQUFBO01BQUE7SUFBQTtJQUFrQztJQUF3QjtJQUNqRTs7Ozs7Ozs7SUFWcEI7SUFDUTtrQkFBQTtRQUFBO1FBQUE7TUFBQTtJQUFBO0lBQXFDO0lBQ2pDO2dCQUFBOzs7O0lBQUE7S0FBQTtJQUdlO0lBQ2Y7Z0JBQUE7Ozs7SUFBQTtPQUFBO1FBQUE7UUFBQTtNQUFBO0lBQUE7SUFLZTs7OztJQVZMO0lBQWQsU0FBYyxTQUFkO0lBS2tCO0lBQWQsVUFBYyxTQUFkOzs7OztJQ05aO2dCQUFBOzs7SUFBQTtLQUFBOzs7SUFBQTs7Ozs7Ozs7Ozs7In0=
