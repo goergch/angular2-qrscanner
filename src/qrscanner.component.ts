@@ -1,37 +1,49 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild} from '@angular/core';
 import { QRCode } from './qrdecode/qrcode'
 
 
 @Component({
     moduleId: 'module.id',
     selector: 'qr-scanner',
-    template: `
-    <canvas id="qr-canvas" width="640" height="480" hidden="true"></canvas>
-    <div id="outdiv"></div>
-    <div id="mainbody"></div>
-`
+    styles: [':host videoWrapper {height: auto; width: 100%;}'],
+    templateUrl: './qrscanner.component.html',
 })
 export class QrScannerComponent implements OnInit, OnDestroy {
 
     @Input() width = 640;
     @Input() height = 480;
-    @Input() facing: string;
-    @Output() onRead: EventEmitter<string> = new EventEmitter<string>();
-    gCanvas: HTMLCanvasElement;
-    gCtx: CanvasRenderingContext2D;
-    qrCode: QRCode = null;
-    stype = 0;
-    gUM = false;
-    v: HTMLVideoElement;
-    webkit = false;
-    moz = false;
-    stream: any;
-    stop = false;
+    @Input() facing: 'environment' | string = 'experimental';
+    @Input() debug = false;
 
-    constructor() { }
+    @Output() onRead: EventEmitter<string> = new EventEmitter<string>();
+
+    @ViewChild('videoWrapper') videoWrapper: HTMLDivElement;
+
+    private gCanvas: HTMLCanvasElement;
+    private gCtx: CanvasRenderingContext2D;
+    private qrCode: QRCode = null;
+    private stype = 0;
+    private gUM = false;
+    private videoElement: HTMLVideoElement;
+
+    private webkit = false;
+    private moz = false;
+    private stream: any;
+    private stop = false;
+
+    private nativeElement: ElementRef;
+    private supported = false;
+
+    constructor(private renderer: Renderer2, private element: ElementRef) {
+        this.nativeElement = this.element.nativeElement;
+        this.supported = this.isCanvasSupported();
+    }
 
     ngOnInit(): void {
-        console.log(`QR Scanner init, facing ${this.facing}`);
+        if (this.debug) {
+            console.log(`QR Scanner init, facing ${this.facing}`);
+        }
+
         this.load();
     }
 
@@ -46,14 +58,13 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     stopScanning(): void {
         this.stream.getTracks()[0].stop();
         this.stop = true;
-
     }
 
-    isCanvasSupported(): boolean {
-        const elem = document.createElement('canvas');
-        return !!(elem.getContext && elem.getContext('2d'));
-
+    private isCanvasSupported(): boolean {
+        const canvas = this.renderer.createElement('canvas');
+        return !!(canvas.getContext() && canvas.getContext('2d'));
     }
+
     initCanvas(w: number, h: number): void {
         this.gCanvas = document.getElementById('qr-canvas') as HTMLCanvasElement;
         this.gCanvas.style.width = w + 'px';
@@ -64,15 +75,15 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         this.gCtx.clearRect(0, 0, w, h);
     }
 
-    setwebcam2(options: any): void {
+    connectDevice(options: any): void {
 
         let self = this;
         function success(stream: any): void {
             self.stream = stream;
             if (self.webkit || self.moz) {
-                self.v.src = window.URL.createObjectURL(stream);
+                self.videoElement.src = window.URL.createObjectURL(stream);
             } else {
-                self.v.src = stream;
+                self.videoElement.src = stream;
             }
             self.gUM = true;
             setTimeout(captureToCanvas, 500);
@@ -89,10 +100,12 @@ export class QrScannerComponent implements OnInit, OnDestroy {
             }
             if (self.gUM) {
                 try {
-                    self.gCtx.drawImage(self.v, 0, 0, self.width, self.height);
+                    self.gCtx.drawImage(self.videoElement, 0, 0, self.width, self.height);
                     self.qrCode.decode(self.gCanvas);
                 } catch (e) {
-                    console.log(e);
+                    if (this.debug) {
+                        console.log(e);
+                    }
                     setTimeout(captureToCanvas, 500);
                 };
             }
@@ -104,8 +117,9 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         }
 
         let n: any = navigator;
-        document.getElementById('outdiv').innerHTML = `<video id="v" autoplay height="${this.height}" width="${this.width}"></video>`;
-        this.v = document.getElementById('v') as HTMLVideoElement;
+        this.videoElement = this.renderer.createElement('videoWrapper');
+        this.videoElement.setAttribute('autoplay', 'true');
+        this.renderer.appendChild(this.videoWrapper, this.videoElement);
 
         if (n.getUserMedia) {
             this.webkit = true;
@@ -122,33 +136,34 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         setTimeout(captureToCanvas, 500);
     }
 
-
-
-    setwebcam(): void {
+    findMediaDevices(): void {
 
         let options: any = true;
         if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
             try {
                 let self = this;
                 navigator.mediaDevices.enumerateDevices()
-                    .then(function (devices: any) {
-                        devices.forEach(function (device: any) {
+                    .then(function (devices: MediaDeviceInfo[]) {
+                        devices.forEach((device: MediaDeviceInfo) => {
                             if (device.kind === 'videoinput' && device.label.toLowerCase().search('back') > -1) {
-                                options = { 'deviceId': { 'exact': device.deviceId }, 'facingMode': 'environment' };
+                                options = { 'deviceId': { 'exact': device.deviceId }, 'facingMode': this.facingMode };
                             }
                         });
-                        self.setwebcam2(options);
+                        self.connectDevice(options);
                     });
             } catch (e) {
-                console.log(e);
+                if (this.debug) {
+                    console.log(e);
+                }
             }
         } else {
-            console.log('no navigator.mediaDevices.enumerateDevices');
-            this.setwebcam2(options);
+            if (this.debug) {
+                console.log('no navigator.mediaDevices.enumerateDevices');
+            }
+            this.connectDevice(options);
         }
 
     }
-
 
     load(): void {
 
@@ -166,17 +181,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
             this.qrCode = new QRCode();
             this.qrCode.myCallback = read;
 
-            this.setwebcam();
-        } else {
-            document.getElementById('mainbody').style.display = 'inline';
-            document.getElementById('mainbody').innerHTML = `
-                <p id="mp1">QR code scanner for HTML5 capable browsers</p><br>
-                <br><p id="mp2">sorry your browser is not supported</p><br><br>
-                <p id="mp1">try
-                    <a href="http://www.mozilla.com/firefox"><img src="firefox.png"/></a> or
-                    <a href="http://chrome.google.com"><img src="chrome_logo.gif"/></a> or
-                    <a href="http://www.opera.com"><img src="Opera-logo.png"/></a>
-                </p>`;
+            this.findMediaDevices();
         }
     }
 }

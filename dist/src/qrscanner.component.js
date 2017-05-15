@@ -1,4 +1,13 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var qrcode_1 = require("./qrdecode/qrcode");
@@ -41,7 +50,7 @@ var QrScannerComponent = (function () {
         this.gCtx = this.gCanvas.getContext('2d');
         this.gCtx.clearRect(0, 0, w, h);
     };
-    QrScannerComponent.prototype.setwebcam2 = function (options) {
+    QrScannerComponent.prototype.connectDevice = function (options) {
         var self = this;
         function success(stream) {
             self.stream = stream;
@@ -79,7 +88,7 @@ var QrScannerComponent = (function () {
             return;
         }
         var n = navigator;
-        document.getElementById('outdiv').innerHTML = "<video id=\"v\" autoplay height=\"" + this.height + "\" width=\"" + this.width + "\"></video>";
+        document.getElementById('outdiv').innerHTML = "<videoWrapper id=\"v\" autoplay height=\"" + this.height + "\" width=\"" + this.width + "\"></videoWrapper>";
         this.v = document.getElementById('v');
         if (n.getUserMedia) {
             this.webkit = true;
@@ -96,7 +105,7 @@ var QrScannerComponent = (function () {
         this.stype = 1;
         setTimeout(captureToCanvas, 500);
     };
-    QrScannerComponent.prototype.setwebcam = function () {
+    QrScannerComponent.prototype.findMediaDevices = function () {
         var options = true;
         if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
             try {
@@ -108,7 +117,7 @@ var QrScannerComponent = (function () {
                             options = { 'deviceId': { 'exact': device.deviceId }, 'facingMode': 'environment' };
                         }
                     });
-                    self_1.setwebcam2(options);
+                    self_1.connectDevice(options);
                 });
             }
             catch (e) {
@@ -117,7 +126,7 @@ var QrScannerComponent = (function () {
         }
         else {
             console.log('no navigator.mediaDevices.enumerateDevices');
-            this.setwebcam2(options);
+            this.connectDevice(options);
         }
     };
     QrScannerComponent.prototype.load = function () {
@@ -133,7 +142,7 @@ var QrScannerComponent = (function () {
             this.initCanvas(this.height, this.width);
             this.qrCode = new qrcode_1.QRCode();
             this.qrCode.myCallback = read;
-            this.setwebcam();
+            this.findMediaDevices();
         }
         else {
             document.getElementById('mainbody').style.display = 'inline';
@@ -142,20 +151,29 @@ var QrScannerComponent = (function () {
     };
     return QrScannerComponent;
 }());
-QrScannerComponent.decorators = [
-    { type: core_1.Component, args: [{
-                moduleId: 'module.id',
-                selector: 'qr-scanner',
-                template: "\n    <canvas id=\"qr-canvas\" width=\"640\" height=\"480\" hidden=\"true\"></canvas>\n    <div id=\"outdiv\"></div>\n    <div id=\"mainbody\"></div>\n"
-            },] },
-];
-/** @nocollapse */
-QrScannerComponent.ctorParameters = function () { return []; };
-QrScannerComponent.propDecorators = {
-    'width': [{ type: core_1.Input },],
-    'height': [{ type: core_1.Input },],
-    'facing': [{ type: core_1.Input },],
-    'onRead': [{ type: core_1.Output },],
-};
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], QrScannerComponent.prototype, "width", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], QrScannerComponent.prototype, "height", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], QrScannerComponent.prototype, "facing", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], QrScannerComponent.prototype, "onRead", void 0);
+QrScannerComponent = __decorate([
+    core_1.Component({
+        moduleId: 'module.id',
+        selector: 'qr-scanner',
+        template: "\n    <canvas id=\"qr-canvas\" width=\"640\" height=\"480\" hidden=\"true\"></canvas>\n    <div id=\"outdiv\"></div>\n    <div id=\"mainbody\"></div>\n"
+    }),
+    __metadata("design:paramtypes", [])
+], QrScannerComponent);
 exports.QrScannerComponent = QrScannerComponent;
 //# sourceMappingURL=qrscanner.component.js.map
