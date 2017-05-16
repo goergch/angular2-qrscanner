@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import { QRCode } from './qrdecode/qrcode'
 
 /**
@@ -27,7 +27,7 @@ import { QRCode } from './qrdecode/qrcode'
     template: `
         <ng-container [ngSwitch]="supported">
             <ng-container *ngSwitchDefault>
-                <canvas #qrCanvas hidden="true"></canvas>
+                <canvas #qrCanvas [width]="canvasWidth" [height]="canvasHeight" hidden="true"></canvas>
                 <div #videoWrapper></div>
             </ng-container>
             <ng-container *ngSwitchCase="false">
@@ -38,7 +38,7 @@ import { QRCode } from './qrdecode/qrcode'
             </ng-container>
         </ng-container>`
 })
-export class QrScannerComponent implements OnInit, OnDestroy {
+export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @Input() canvasWidth = 640;
     @Input() canvasHeight = 480;
@@ -49,8 +49,8 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
     @Output() onRead: EventEmitter<string> = new EventEmitter<string>();
 
-    @ViewChild('videoWrapper') videoWrapper: HTMLDivElement;
-    @ViewChild('qrCanvas') qrCanvas: HTMLCanvasElement;
+    @ViewChild('videoWrapper') videoWrapper: ElementRef;
+    @ViewChild('qrCanvas') qrCanvas: ElementRef;
 
     private gCtx: CanvasRenderingContext2D;
     private qrCode: QRCode = null;
@@ -64,7 +64,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     private stop = false;
 
     private nativeElement: ElementRef;
-    private supported = false;
+    private supported = true;
 
     private captureTimeout: any;
 
@@ -73,11 +73,14 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         this.supported = this.isCanvasSupported();
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
         if (this.debug) {
             console.log(`[QrScanner] QR Scanner init, facing ${this.facing}`);
         }
+        // this.load();
+    }
 
+    ngAfterViewInit(): void {
         this.load();
     }
 
@@ -102,15 +105,13 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
     private isCanvasSupported(): boolean {
         const canvas = this.renderer.createElement('canvas');
-        return !!(canvas.getContext() && canvas.getContext('2d'));
+        return !!(canvas.getContext && canvas.getContext('2d'));
     }
 
     private initCanvas(w: number, h: number): void {
-        // this.qrCanvas.style.width = `${w}px`;
-        // this.qrCanvas.style.height = `${h}px`;
-        this.qrCanvas.width = w;
-        this.qrCanvas.height = h;
-        this.gCtx = this.qrCanvas.getContext('2d');
+        this.qrCanvas.nativeElement.style.width = `${w}px`;
+        this.qrCanvas.nativeElement.style.height = `${h}px`;
+        this.gCtx = this.qrCanvas.nativeElement.getContext('2d');
         this.gCtx.clearRect(0, 0, w, h);
         if (!this.mirror) { this.gCtx.translate(-1, 1); }
     }
@@ -127,7 +128,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
                 self.videoElement.src = stream;
             }
             self.gUM = true;
-            this.captureTimeout = setTimeout(captureToCanvas, 500);
+            self.captureTimeout = setTimeout(captureToCanvas, 500);
         }
 
         function error(error: any): void {
@@ -142,12 +143,12 @@ export class QrScannerComponent implements OnInit, OnDestroy {
             if (self.gUM) {
                 try {
                     self.gCtx.drawImage(self.videoElement, 0, 0, self.canvasWidth, self.canvasHeight);
-                    self.qrCode.decode(self.qrCanvas);
+                    self.qrCode.decode(self.qrCanvas.nativeElement);
                 } catch (e) {
                     if (this.debug) {
                         console.log(e);
                     }
-                    this.captureTimeout = setTimeout(captureToCanvas, 500);
+                    self.captureTimeout = setTimeout(captureToCanvas, 500);
                 }
             }
         }
@@ -159,9 +160,9 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
         const _navigator: any = navigator;
 
-        this.videoElement = this.renderer.createElement('videoWrapper');
+        this.videoElement = this.renderer.createElement('video');
         this.videoElement.setAttribute('autoplay', 'true');
-        this.renderer.appendChild(this.videoWrapper, this.videoElement);
+        this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
 
         if (_navigator.getUserMedia) {
             this.isWebkit = true;
@@ -181,15 +182,19 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     private get findMediaDevices(): Promise<{deviceId: { exact: string }, facingMode: string } | boolean> {
 
         const videoDevice =
-            (device: MediaDeviceInfo) => device.kind === 'videoinput' && device.label.search(/back/i) > -1;
+            (dvc: MediaDeviceInfo) => dvc.kind === 'videoinput' && dvc.label.search(/back/i) > -1;
+
         return new Promise((resolve, reject) => {
             if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
                 try {
                     navigator.mediaDevices.enumerateDevices()
                         .then((devices: MediaDeviceInfo[]) => {
                             const device = devices.find((_device: MediaDeviceInfo) => videoDevice(_device));
-                            const options = { 'deviceId': { 'exact': device.deviceId }, 'facingMode': this.facing };
-                            resolve(options);
+                            if (device) {
+                                resolve({ 'deviceId': { 'exact': device.deviceId }, 'facingMode': this.facing });
+                            } else {
+                                resolve(true);
+                            }
                         });
                 } catch (e) {
                     if (this.debug) {

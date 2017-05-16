@@ -1,16 +1,35 @@
-import { OnInit, EventEmitter, OnDestroy, Renderer2, ElementRef } from '@angular/core';
-export declare class QrScannerComponent implements OnInit, OnDestroy {
+import { OnInit, EventEmitter, OnDestroy, Renderer2, ElementRef, AfterViewInit } from '@angular/core';
+/**
+ * QrScanner will scan for a QRCode from your Web-cam and return its
+ * string representation by drawing the captured image onto a 2D Canvas
+ * and use LazarSoft/jsqrcode to check for a valid QRCode every 500ms
+ *
+ * @usage:
+ * <qr-scanner
+ *     [canvasWidth]="640"      canvas width                                 (default: 640)
+ *     [canvasHeight]="480"     canvas height                                (default: 480)
+ *     [mirror]="false"         should the image be a mirror?                (default: false)
+ *     [stopAfterScan]="true"   should the scanner stop after first success? (default: true)
+ *     (onRead)="decodedOutput(string)" </qr-scanner>
+ *
+ * @public
+ * startScanning() {void}       Method called by ngInit to find devices and start scanning.
+ * stopScanning() {void}        Method called by ngDestroy (or on successful qr-scan) to stop scanning
+ *
+ * Both of these methods can be called to control the scanner if `stopAfterScan` is set to `false`
+ */
+export declare class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     private renderer;
     private element;
-    width: number;
-    height: number;
+    canvasWidth: number;
+    canvasHeight: number;
     facing: 'environment' | string;
     debug: boolean;
     mirror: boolean;
     stopAfterScan: boolean;
     onRead: EventEmitter<string>;
-    videoWrapper: HTMLDivElement;
-    qrCanvas: HTMLCanvasElement;
+    videoWrapper: ElementRef;
+    qrCanvas: ElementRef;
     private gCtx;
     private qrCode;
     private isDeviceConnected;
@@ -25,6 +44,7 @@ export declare class QrScannerComponent implements OnInit, OnDestroy {
     private captureTimeout;
     constructor(renderer: Renderer2, element: ElementRef);
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     startScanning(): void;
     stopScanning(): void;
