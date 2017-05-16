@@ -9,10 +9,12 @@ var qrcode_1 = require("./qrdecode/qrcode");
  *
  * @usage:
  * <qr-scanner
+ *     [debug]="false"          debug flag for console.log spam              (default: false)
  *     [canvasWidth]="640"      canvas width                                 (default: 640)
  *     [canvasHeight]="480"     canvas height                                (default: 480)
  *     [mirror]="false"         should the image be a mirror?                (default: false)
  *     [stopAfterScan]="true"   should the scanner stop after first success? (default: true)
+ *     [updateTime]="500"       miliseconds between new capture              (default: 500)
  *     (onRead)="decodedOutput(string)" </qr-scanner>
  *
  * @public
@@ -31,6 +33,7 @@ var QrScannerComponent = (function () {
         this.debug = false;
         this.mirror = false;
         this.stopAfterScan = true;
+        this.updateTime = 500;
         this.onRead = new core_1.EventEmitter();
         this.qrCode = null;
         this.isDeviceConnected = false;
@@ -46,7 +49,6 @@ var QrScannerComponent = (function () {
         if (this.debug) {
             console.log("[QrScanner] QR Scanner init, facing " + this.facing);
         }
-        // this.load();
     };
     QrScannerComponent.prototype.ngAfterViewInit = function () {
         this.load();
@@ -89,7 +91,7 @@ var QrScannerComponent = (function () {
                 self.videoElement.src = stream;
             }
             self.gUM = true;
-            self.captureTimeout = setTimeout(captureToCanvas, 500);
+            self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
         }
         function error(error) {
             this.gUM = false;
@@ -108,17 +110,21 @@ var QrScannerComponent = (function () {
                     if (this.debug) {
                         console.log(e);
                     }
-                    self.captureTimeout = setTimeout(captureToCanvas, 500);
+                    self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
                 }
             }
         }
         if (this.isDeviceConnected && !this.captureTimeout) {
-            this.captureTimeout = setTimeout(captureToCanvas, 500);
+            this.captureTimeout = setTimeout(captureToCanvas, this.updateTime);
             return;
         }
         var _navigator = navigator;
         this.videoElement = this.renderer.createElement('video');
         this.videoElement.setAttribute('autoplay', 'true');
+        if (!this.mirror) {
+            this.videoElement.classList.add('mirrored');
+        }
+        ;
         this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
         if (_navigator.getUserMedia) {
             this.isWebkit = true;
@@ -133,7 +139,7 @@ var QrScannerComponent = (function () {
             _navigator.mozGetUserMedia({ video: options, audio: false }, success, error);
         }
         this.isDeviceConnected = true;
-        this.captureTimeout = setTimeout(captureToCanvas, 500);
+        this.captureTimeout = setTimeout(captureToCanvas, this.updateTime);
     };
     Object.defineProperty(QrScannerComponent.prototype, "findMediaDevices", {
         get: function () {
@@ -194,7 +200,10 @@ QrScannerComponent.decorators = [
     { type: core_1.Component, args: [{
                 moduleId: 'module.id',
                 selector: 'qr-scanner',
-                styles: [':host videoWrapper {height: auto; width: 100%;}'],
+                styles: [
+                    ':host video {height: auto; width: 100%;}',
+                    ':host .mirrored { transform: rotateY(180deg); -webkit-transform:rotateY(180deg); -moz-transform:rotateY(180deg); }'
+                ],
                 template: "\n        <ng-container [ngSwitch]=\"supported\">\n            <ng-container *ngSwitchDefault>\n                <canvas #qrCanvas [width]=\"canvasWidth\" [height]=\"canvasHeight\" hidden=\"true\"></canvas>\n                <div #videoWrapper></div>\n            </ng-container>\n            <ng-container *ngSwitchCase=\"false\">\n                <p>\n                    You are using an <strong>outdated</strong> browser.\n                    Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.\n                </p>\n            </ng-container>\n        </ng-container>"
             },] },
 ];
@@ -210,6 +219,7 @@ QrScannerComponent.propDecorators = {
     'debug': [{ type: core_1.Input },],
     'mirror': [{ type: core_1.Input },],
     'stopAfterScan': [{ type: core_1.Input },],
+    'updateTime': [{ type: core_1.Input },],
     'onRead': [{ type: core_1.Output },],
     'videoWrapper': [{ type: core_1.ViewChild, args: ['videoWrapper',] },],
     'qrCanvas': [{ type: core_1.ViewChild, args: ['qrCanvas',] },],

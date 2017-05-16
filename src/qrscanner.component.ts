@@ -8,10 +8,12 @@ import { QRCode } from './qrdecode/qrcode'
  *
  * @usage:
  * <qr-scanner
+ *     [debug]="false"          debug flag for console.log spam              (default: false)
  *     [canvasWidth]="640"      canvas width                                 (default: 640)
  *     [canvasHeight]="480"     canvas height                                (default: 480)
  *     [mirror]="false"         should the image be a mirror?                (default: false)
  *     [stopAfterScan]="true"   should the scanner stop after first success? (default: true)
+ *     [updateTime]="500"       miliseconds between new capture              (default: 500)
  *     (onRead)="decodedOutput(string)" </qr-scanner>
  *
  * @public
@@ -23,7 +25,10 @@ import { QRCode } from './qrdecode/qrcode'
 @Component({
     moduleId: 'module.id',
     selector: 'qr-scanner',
-    styles: [':host videoWrapper {height: auto; width: 100%;}'],
+    styles: [
+        ':host video {height: auto; width: 100%;}',
+        ':host .mirrored { transform: rotateY(180deg); -webkit-transform:rotateY(180deg); -moz-transform:rotateY(180deg); }'
+    ],
     template: `
         <ng-container [ngSwitch]="supported">
             <ng-container *ngSwitchDefault>
@@ -46,6 +51,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input() debug = false;
     @Input() mirror = false;
     @Input() stopAfterScan = true;
+    @Input() updateTime = 500;
 
     @Output() onRead: EventEmitter<string> = new EventEmitter<string>();
 
@@ -77,7 +83,6 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.debug) {
             console.log(`[QrScanner] QR Scanner init, facing ${this.facing}`);
         }
-        // this.load();
     }
 
     ngAfterViewInit(): void {
@@ -128,7 +133,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
                 self.videoElement.src = stream;
             }
             self.gUM = true;
-            self.captureTimeout = setTimeout(captureToCanvas, 500);
+            self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
         }
 
         function error(error: any): void {
@@ -148,13 +153,13 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (this.debug) {
                         console.log(e);
                     }
-                    self.captureTimeout = setTimeout(captureToCanvas, 500);
+                    self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
                 }
             }
         }
 
         if (this.isDeviceConnected && !this.captureTimeout) {
-            this.captureTimeout = setTimeout(captureToCanvas, 500);
+            this.captureTimeout = setTimeout(captureToCanvas, this.updateTime);
             return;
         }
 
@@ -162,6 +167,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.videoElement = this.renderer.createElement('video');
         this.videoElement.setAttribute('autoplay', 'true');
+        if (!this.mirror) { this.videoElement.classList.add('mirrored') };
         this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
 
         if (_navigator.getUserMedia) {
@@ -176,7 +182,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         this.isDeviceConnected = true;
-        this.captureTimeout = setTimeout(captureToCanvas, 500);
+        this.captureTimeout = setTimeout(captureToCanvas, this.updateTime);
     }
 
     private get findMediaDevices(): Promise<{deviceId: { exact: string }, facingMode: string } | boolean> {

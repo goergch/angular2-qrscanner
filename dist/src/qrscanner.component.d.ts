@@ -6,10 +6,12 @@ import { OnInit, EventEmitter, OnDestroy, Renderer2, ElementRef, AfterViewInit }
  *
  * @usage:
  * <qr-scanner
+ *     [debug]="false"          debug flag for console.log spam              (default: false)
  *     [canvasWidth]="640"      canvas width                                 (default: 640)
  *     [canvasHeight]="480"     canvas height                                (default: 480)
  *     [mirror]="false"         should the image be a mirror?                (default: false)
  *     [stopAfterScan]="true"   should the scanner stop after first success? (default: true)
+ *     [updateTime]="500"       miliseconds between new capture              (default: 500)
  *     (onRead)="decodedOutput(string)" </qr-scanner>
  *
  * @public
@@ -27,6 +29,7 @@ export declare class QrScannerComponent implements OnInit, OnDestroy, AfterViewI
     debug: boolean;
     mirror: boolean;
     stopAfterScan: boolean;
+    updateTime: number;
     onRead: EventEmitter<string>;
     videoWrapper: ElementRef;
     qrCanvas: ElementRef;
