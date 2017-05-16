@@ -1,6 +1,6 @@
 {
   "name": "angular2-qrscanner",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "build": "ngc -p tsconfig.json",
     "lint": "tslint src/**/*.ts",
@@ -30,7 +30,10 @@
     "url": "https://github.com/goergch/angular2-qrscanner/issues"
   },
   "main": "./dist/index.js",
-  "files": ["./dist/", "./README.md"],
+  "files": [
+    "./dist/",
+    "./README.md"
+  ],
   "dependencies": {},
   "devDependencies": {
     "@angular/common": "^4.1.1",
