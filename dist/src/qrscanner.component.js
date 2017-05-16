@@ -1,4 +1,13 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var qrcode_1 = require("./qrdecode/qrcode");
@@ -48,6 +57,8 @@ var QrScannerComponent = (function () {
         return !!(canvas.getContext() && canvas.getContext('2d'));
     };
     QrScannerComponent.prototype.initCanvas = function (w, h) {
+        // this.qrCanvas.style.width = `${w}px`;
+        // this.qrCanvas.style.height = `${h}px`;
         this.qrCanvas.width = w;
         this.qrCanvas.height = h;
         this.gCtx = this.qrCanvas.getContext('2d');
@@ -164,29 +175,50 @@ var QrScannerComponent = (function () {
     };
     return QrScannerComponent;
 }());
-QrScannerComponent.decorators = [
-    { type: core_1.Component, args: [{
-                moduleId: 'module.id',
-                selector: 'qr-scanner',
-                styles: [':host videoWrapper {height: auto; width: 100%;}'],
-                template: "\n        <ng-container [ngSwitch]=\"supported\">\n            <ng-container *ngSwitchDefault>\n                <canvas #qrCanvas hidden=\"true\"></canvas>\n                <div #videoWrapper></div>\n            </ng-container>\n            <ng-container *ngSwitchCase=\"false\">\n                <p>\n                    You are using an <strong>outdated</strong> browser.\n                    Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.\n                </p>\n            </ng-container>\n        </ng-container>"
-            },] },
-];
-/** @nocollapse */
-QrScannerComponent.ctorParameters = function () { return [
-    { type: core_1.Renderer2, },
-    { type: core_1.ElementRef, },
-]; };
-QrScannerComponent.propDecorators = {
-    'width': [{ type: core_1.Input },],
-    'height': [{ type: core_1.Input },],
-    'facing': [{ type: core_1.Input },],
-    'debug': [{ type: core_1.Input },],
-    'mirror': [{ type: core_1.Input },],
-    'stopAfterScan': [{ type: core_1.Input },],
-    'onRead': [{ type: core_1.Output },],
-    'videoWrapper': [{ type: core_1.ViewChild, args: ['videoWrapper',] },],
-    'qrCanvas': [{ type: core_1.ViewChild, args: ['qrCanvas',] },],
-};
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], QrScannerComponent.prototype, "width", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], QrScannerComponent.prototype, "height", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], QrScannerComponent.prototype, "facing", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], QrScannerComponent.prototype, "debug", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], QrScannerComponent.prototype, "mirror", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], QrScannerComponent.prototype, "stopAfterScan", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], QrScannerComponent.prototype, "onRead", void 0);
+__decorate([
+    core_1.ViewChild('videoWrapper'),
+    __metadata("design:type", HTMLDivElement)
+], QrScannerComponent.prototype, "videoWrapper", void 0);
+__decorate([
+    core_1.ViewChild('qrCanvas'),
+    __metadata("design:type", HTMLCanvasElement)
+], QrScannerComponent.prototype, "qrCanvas", void 0);
+QrScannerComponent = __decorate([
+    core_1.Component({
+        moduleId: 'module.id',
+        selector: 'qr-scanner',
+        styles: [':host videoWrapper {height: auto; width: 100%;}'],
+        template: "\n        <ng-container [ngSwitch]=\"supported\">\n            <ng-container *ngSwitchDefault>\n                <canvas #qrCanvas hidden=\"true\"></canvas>\n                <div #videoWrapper></div>\n            </ng-container>\n            <ng-container *ngSwitchCase=\"false\">\n                <p>\n                    You are using an <strong>outdated</strong> browser.\n                    Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience.\n                </p>\n            </ng-container>\n        </ng-container>"
+    }),
+    __metadata("design:paramtypes", [core_1.Renderer2, core_1.ElementRef])
+], QrScannerComponent);
 exports.QrScannerComponent = QrScannerComponent;
 //# sourceMappingURL=qrscanner.component.js.map

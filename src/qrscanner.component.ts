@@ -1,7 +1,25 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild} from '@angular/core';
 import { QRCode } from './qrdecode/qrcode'
 
-
+/**
+ * QrScanner will scan for a QRCode from your Web-cam and return its
+ * string representation by drawing the captured image onto a 2D Canvas
+ * and use LazarSoft/jsqrcode to check for a valid QRCode every 500ms
+ *
+ * @usage:
+ * <qr-scanner
+ *     [canvasWidth]="640"      canvas width                                 (default: 640)
+ *     [canvasHeight]="480"     canvas height                                (default: 480)
+ *     [mirror]="false"         should the image be a mirror?                (default: false)
+ *     [stopAfterScan]="true"   should the scanner stop after first success? (default: true)
+ *     (onRead)="decodedOutput(string)" </qr-scanner>
+ *
+ * @public
+ * startScanning() {void}       Method called by ngInit to find devices and start scanning.
+ * stopScanning() {void}        Method called by ngDestroy (or on successful qr-scan) to stop scanning
+ *
+ * Both of these methods can be called to control the scanner if `stopAfterScan` is set to `false`
+ */
 @Component({
     moduleId: 'module.id',
     selector: 'qr-scanner',
@@ -22,12 +40,12 @@ import { QRCode } from './qrdecode/qrcode'
 })
 export class QrScannerComponent implements OnInit, OnDestroy {
 
-    @Input() width = 640;
-    @Input() height = 480;
+    @Input() canvasWidth = 640;
+    @Input() canvasHeight = 480;
     @Input() facing: 'environment' | string = 'environment';
     @Input() debug = false;
     @Input() mirror = false;
-    @Input() stopAfterScan = false;
+    @Input() stopAfterScan = true;
 
     @Output() onRead: EventEmitter<string> = new EventEmitter<string>();
 
@@ -123,7 +141,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
             }
             if (self.gUM) {
                 try {
-                    self.gCtx.drawImage(self.videoElement, 0, 0, self.width, self.height);
+                    self.gCtx.drawImage(self.videoElement, 0, 0, self.canvasWidth, self.canvasHeight);
                     self.qrCode.decode(self.qrCanvas);
                 } catch (e) {
                     if (this.debug) {
@@ -200,7 +218,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         this.isDeviceConnected = false;
 
         if (this.supported) {
-            this.initCanvas(this.height, this.width);
+            this.initCanvas(this.canvasHeight, this.canvasWidth);
             this.qrCode = new QRCode();
             this.qrCode.myCallback = (decoded: string) => this.decodeCallback(decoded);
 
