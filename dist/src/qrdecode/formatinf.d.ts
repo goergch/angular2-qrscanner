@@ -13,11 +13,11 @@ export declare class FormatInformation {
     constructor(formatInfo: any);
     readonly ErrorCorrectionLevel: any;
     readonly DataMask: any;
-    static GetHashCode: () => number;
-    static Equals: (o: any) => boolean;
+    GetHashCode(): number;
+    Equals: (o: any) => boolean;
     static URShift(number: any, bits: any): any;
-    static numBitsDiffering: (a: any, b: any) => number;
-    static decodeFormatInformation: (maskedFormatInfo: any) => any;
-    static doDecodeFormatInformation: (maskedFormatInfo: any) => FormatInformation;
-    static forBits: (bits: any) => ErrorCorrectionLevel;
+    static numBitsDiffering(a: any, b: any): number;
+    static decodeFormatInformation(maskedFormatInfo: any): FormatInformation;
+    static doDecodeFormatInformation(maskedFormatInfo: any): FormatInformation;
+    static forBits(bits: any): ErrorCorrectionLevel;
 }

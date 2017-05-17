@@ -1,8 +1,8 @@
 /*
-  Ported to JavaScript by Lazar Laszlo 2011 
-  
+  Ported to JavaScript by Lazar Laszlo 2011
+
   lazarsoft@gmail.com, www.lazarsoft.info
-  
+
 */
 
 /*
@@ -49,10 +49,11 @@ export class FormatInformation {
 		return this.dataMask;
 	};
 
-	static GetHashCode = function () {
+	GetHashCode () {
 		return (this.errorCorrectionLevel.ordinal() << 3) | this.dataMask;
 	}
-	static Equals = function (o: any) {
+
+	Equals = function (o: any) {
 		var other = o;
 		return this.errorCorrectionLevel == other.errorCorrectionLevel && this.dataMask == other.dataMask;
 	}
@@ -64,7 +65,7 @@ export class FormatInformation {
 			return (number >> bits) + (2 << ~bits);
 	}
 
-	static numBitsDiffering = function (a: any, b: any) {
+	static numBitsDiffering (a: any, b: any) {
 		a ^= b; // a now has a 1 bit exactly where its bit differs with b's
 		// Count bits set quickly with a series of lookups:
 		return FormatInformation.BITS_SET_IN_HALF_BYTE[a & 0x0F]
@@ -77,7 +78,7 @@ export class FormatInformation {
 			+ FormatInformation.BITS_SET_IN_HALF_BYTE[(this.URShift(a, 28) & 0x0F)];
 	}
 
-	static decodeFormatInformation = function (maskedFormatInfo: any) {
+	static decodeFormatInformation (maskedFormatInfo: any) {
 		var formatInfo = this.doDecodeFormatInformation(maskedFormatInfo);
 		if (formatInfo != null) {
 			return formatInfo;
@@ -88,7 +89,7 @@ export class FormatInformation {
 		return this.doDecodeFormatInformation(maskedFormatInfo ^ FormatInformation.FORMAT_INFO_MASK_QR);
 	}
 
-	static doDecodeFormatInformation = function (maskedFormatInfo: any) {
+	static doDecodeFormatInformation (maskedFormatInfo: any) {
 		// Find the int in FORMAT_INFO_DECODE_LOOKUP with fewest bits differing
 		var bestDifference = 0xffffffff;
 		var bestFormatInfo = 0;
@@ -113,7 +114,7 @@ export class FormatInformation {
 		return null;
 	}
 
-	static forBits = function (bits: any) {
+	static forBits (bits: any) {
 		{
 			if (bits < 0 || bits >= FormatInformation.FOR_BITS.length) {
 				throw "ArgumentException";
@@ -123,4 +124,3 @@ export class FormatInformation {
 	}
 }
 
-		

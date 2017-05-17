@@ -3,6 +3,8 @@
     "noImplicitAny": true,
     "module": "commonjs",
     "target": "ES5",
+    "lib": ["es2015", "es2017", "dom"],
+    "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,

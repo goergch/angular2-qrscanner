@@ -1,212 +1,239 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
-import {QRCode} from './qrdecode/qrcode'
+import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import { QRCode } from './qrdecode/qrcode'
 
-
+/**
+ * QrScanner will scan for a QRCode from your Web-cam and return its
+ * string representation by drawing the captured image onto a 2D Canvas
+ * and use LazarSoft/jsqrcode to check for a valid QRCode every 500ms
+ *
+ * @usage:
+ * <qr-scanner
+ *     [debug]="false"          debug flag for console.log spam              (default: false)
+ *     [canvasWidth]="640"      canvas width                                 (default: 640)
+ *     [canvasHeight]="480"     canvas height                                (default: 480)
+ *     [mirror]="false"         should the image be a mirror?                (default: false)
+ *     [stopAfterScan]="true"   should the scanner stop after first success? (default: true)
+ *     [updateTime]="500"       miliseconds between new capture              (default: 500)
+ *     (onRead)="decodedOutput(string)" </qr-scanner>
+ *
+ * @public
+ * startScanning() {void}       Method called by ngInit to find devices and start scanning.
+ * stopScanning() {void}        Method called by ngDestroy (or on successful qr-scan) to stop scanning
+ *
+ * Both of these methods can be called to control the scanner if `stopAfterScan` is set to `false`
+ */
 @Component({
-  moduleId: 'module.id',
-  selector: 'qr-scanner',
-  template: `
-    <canvas id="qr-canvas" width="640" height="480" hidden="true"></canvas>
-    <div id="outdiv"></div>
-    <div id="mainbody"></div>
-`
+    moduleId: 'module.id',
+    selector: 'qr-scanner',
+    styles: [
+        ':host video {height: auto; width: 100%;}',
+        ':host .mirrored { transform: rotateY(180deg); -webkit-transform:rotateY(180deg); -moz-transform:rotateY(180deg); }'
+    ],
+    template: `
+        <ng-container [ngSwitch]="supported">
+            <ng-container *ngSwitchDefault>
+                <canvas #qrCanvas [width]="canvasWidth" [height]="canvasHeight" hidden="true"></canvas>
+                <div #videoWrapper></div>
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+                <p>
+                    You are using an <strong>outdated</strong> browser.
+                    Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+                </p>
+            </ng-container>
+        </ng-container>`
 })
-export class QrScannerComponent implements OnInit, OnDestroy {
+export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
-    @Input() facing: string;
+    @Input() canvasWidth = 640;
+    @Input() canvasHeight = 480;
+    @Input() facing: 'environment' | string = 'environment';
+    @Input() debug = false;
+    @Input() mirror = false;
+    @Input() stopAfterScan = true;
+    @Input() updateTime = 500;
+
     @Output() onRead: EventEmitter<string> = new EventEmitter<string>();
-    gCanvas: HTMLCanvasElement;
-    gCtx: CanvasRenderingContext2D;
-    qrCode: QRCode = null;
-    stype= 0;
-    gUM = false;
-    vidhtml = '<video id="v" autoplay></video>';
-    v: HTMLVideoElement;
-    webkit=false;
-    moz = false;
-    stream:any;
-    stop = false;
 
-    constructor()
-    {
+    @ViewChild('videoWrapper') videoWrapper: ElementRef;
+    @ViewChild('qrCanvas') qrCanvas: ElementRef;
+
+    private gCtx: CanvasRenderingContext2D;
+    private qrCode: QRCode = null;
+    private isDeviceConnected = false;
+    private gUM = false;
+    private videoElement: HTMLVideoElement;
+
+    private isWebkit = false;
+    private isMoz = false;
+    private stream: any;
+    private stop = false;
+
+    private nativeElement: ElementRef;
+    private supported = true;
+
+    private captureTimeout: any;
+
+    constructor(private renderer: Renderer2, private element: ElementRef) {
+        this.nativeElement = this.element.nativeElement;
+        this.supported = this.isCanvasSupported();
     }
 
-  ngOnInit(): void {
-      console.log("QR Scanner init, facing " + this.facing);
-      this.load();
-  }
+    ngOnInit() {
+        if (this.debug) {
+            console.log(`[QrScanner] QR Scanner init, facing ${this.facing}`);
+        }
+    }
 
-  ngOnDestroy(){
-    this.stopScanning();
-  }
+    ngAfterViewInit(): void {
+        this.load();
+    }
 
-  startScanning(): void{
-      this.load();
-  }
+    ngOnDestroy() {
+        this.stopScanning();
+    }
 
-  stopScanning(): void{
-      this.stream.getTracks()[0].stop();
-      this.stop = true;
+    startScanning(): void {
+        this.load();
+    }
 
-  }
+    stopScanning(): void {
 
-  isCanvasSupported(): boolean{
-    var elem = document.createElement('canvas');
-    return !!(elem.getContext && elem.getContext('2d'));
+        if (this.captureTimeout) {
+            clearTimeout(this.captureTimeout);
+            this.captureTimeout = false;
+        }
 
-  }
-  initCanvas(w: number,h:number ): void {
-      this.gCanvas = document.getElementById("qr-canvas") as HTMLCanvasElement;
-      this.gCanvas.style.width = w + "px";
-      this.gCanvas.style.height = h + "px";
-      this.gCanvas.width = w;
-      this.gCanvas.height = h;
-      this.gCtx = this.gCanvas.getContext("2d");
-      this.gCtx.clearRect(0, 0, w, h);
-  }
+        this.stream.getTracks()[0].stop();
+        this.stop = true;
+    }
 
-    setwebcam2(options: any): void
-    {
+    private isCanvasSupported(): boolean {
+        const canvas = this.renderer.createElement('canvas');
+        return !!(canvas.getContext && canvas.getContext('2d'));
+    }
 
-        var self = this;
-        function success(stream:any): void {
+    private initCanvas(w: number, h: number): void {
+        this.qrCanvas.nativeElement.style.width = `${w}px`;
+        this.qrCanvas.nativeElement.style.height = `${h}px`;
+        this.gCtx = this.qrCanvas.nativeElement.getContext('2d');
+        this.gCtx.clearRect(0, 0, w, h);
+        if (!this.mirror) { this.gCtx.translate(-1, 1); }
+    }
+
+    private connectDevice(options: any): void {
+
+        const self = this;
+
+        function success(stream: any): void {
             self.stream = stream;
-            if(self.webkit || self.moz)
-                self.v.src = window.URL.createObjectURL(stream);
-            else
-                self.v.src = stream;
-            self.gUM=true;
-            setTimeout(captureToCanvas, 500);
+            if (self.isWebkit || self.isMoz) {
+                self.videoElement.src = window.URL.createObjectURL(stream);
+            } else {
+                self.videoElement.src = stream;
+            }
+            self.gUM = true;
+            self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
         }
 
         function error(error: any): void {
-            this.gUM=false;
+            this.gUM = false;
             return;
         }
 
-        function captureToCanvas():void {
-            if(self.stop == true)
+        function captureToCanvas(): void {
+            if (self.stop || !self.isDeviceConnected) {
                 return;
-            if(self.stype!=1)
-                return;
-            if(self.gUM)
-            {
-                try{
-                    self.gCtx.drawImage(self.v,0,0);
-                    try{
-                        self.qrCode.decode(self.gCanvas);
-                    }
-                    catch(e){
+            }
+            if (self.gUM) {
+                try {
+                    self.gCtx.drawImage(self.videoElement, 0, 0, self.canvasWidth, self.canvasHeight);
+                    self.qrCode.decode(self.qrCanvas.nativeElement);
+                } catch (e) {
+                    if (this.debug) {
                         console.log(e);
-                        setTimeout(captureToCanvas, 500);
-                    };
+                    }
+                    self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
                 }
-                catch(e){
-                    console.log(e);
-                    setTimeout(captureToCanvas, 500);
-                };
             }
         }
 
-
-        console.log(options);
-        // document.getElementById("result").innerHTML="- scanning -";
-        if(this.stype==1)
-        {
-            setTimeout(captureToCanvas, 500);
+        if (this.isDeviceConnected && !this.captureTimeout) {
+            this.captureTimeout = setTimeout(captureToCanvas, this.updateTime);
             return;
         }
-        var n:any =navigator;
-        document.getElementById("outdiv").innerHTML = this.vidhtml;
-        this.v=document.getElementById("v") as HTMLVideoElement;
 
+        const _navigator: any = navigator;
 
-        if(n.getUserMedia)
-        {
-            this.webkit=true;
-            n.getUserMedia({video: options, audio: false}, success, error);
-        }
-        else
-        if(n.webkitGetUserMedia)
-        {
-            this.webkit=true;
-            n.webkitGetUserMedia({video:options, audio: false}, success, error);
-        }
-        else
-        if(n.mozGetUserMedia)
-        {
-            this.moz=true;
-            n.mozGetUserMedia({video: options, audio: false}, success, error);
+        this.videoElement = this.renderer.createElement('video');
+        this.videoElement.setAttribute('autoplay', 'true');
+        if (!this.mirror) { this.videoElement.classList.add('mirrored') };
+        this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
+
+        if (_navigator.getUserMedia) {
+            this.isWebkit = true;
+            _navigator.getUserMedia({ video: options, audio: false }, success, error);
+        } else if (_navigator.webkitGetUserMedia) {
+            this.isWebkit = true;
+            _navigator.webkitGetUserMedia({ video: options, audio: false }, success, error);
+        } else if (_navigator.mozGetUserMedia) {
+            this.isMoz = true;
+            _navigator.mozGetUserMedia({ video: options, audio: false }, success, error);
         }
 
-        // document.getElementById("qrimg").style.opacity=0.2;
-        // document.getElementById("webcamimg").style.opacity=1.0;
-
-        this.stype=1;
-        setTimeout(captureToCanvas, 500);
+        this.isDeviceConnected = true;
+        this.captureTimeout = setTimeout(captureToCanvas, this.updateTime);
     }
 
+    private get findMediaDevices(): Promise<{deviceId: { exact: string }, facingMode: string } | boolean> {
 
+        const videoDevice =
+            (dvc: MediaDeviceInfo) => dvc.kind === 'videoinput' && dvc.label.search(/back/i) > -1;
 
-    setwebcam():void
-    {
-
-        var options: any = true;
-        if(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)
-        {
-            try{
-                var self = this;
-                navigator.mediaDevices.enumerateDevices()
-                    .then(function(devices: any) {
-                        devices.forEach(function(device: any) {
-                            if (device.kind === 'videoinput') {
-                                if(device.label.toLowerCase().search("back") >-1)
-                                    options={'deviceId': {'exact':device.deviceId}, 'facingMode':'environment'} ;
+        return new Promise((resolve, reject) => {
+            if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+                try {
+                    navigator.mediaDevices.enumerateDevices()
+                        .then((devices: MediaDeviceInfo[]) => {
+                            const device = devices.find((_device: MediaDeviceInfo) => videoDevice(_device));
+                            if (device) {
+                                resolve({ 'deviceId': { 'exact': device.deviceId }, 'facingMode': this.facing });
+                            } else {
+                                resolve(true);
                             }
-                            console.log(device.kind + ": " + device.label +" id = " + device.deviceId + "facingMode = " + device);
                         });
-                        self.setwebcam2(options);
-                    });
+                } catch (e) {
+                    if (this.debug) {
+                        console.log(e);
+                    }
+                    reject(e);
+                }
+            } else {
+                if (this.debug) {
+                    console.log('[QrScanner] no navigator.mediaDevices.enumerateDevices');
+                }
+                resolve(true);
             }
-            catch(e)
-            {
-                console.log(e);
-            }
+        })
+    }
+
+    private decodeCallback(decoded: string) {
+        this.onRead.emit(decoded);
+        if (this.stopAfterScan) {
+            this.stopScanning();
         }
-        else{
-            console.log("no navigator.mediaDevices.enumerateDevices" );
-            this.setwebcam2(options);
+    }
+
+    private load(): void {
+        this.stop = false;
+        this.isDeviceConnected = false;
+
+        if (this.supported) {
+            this.initCanvas(this.canvasHeight, this.canvasWidth);
+            this.qrCode = new QRCode();
+            this.qrCode.myCallback = (decoded: string) => this.decodeCallback(decoded);
+
+            this.findMediaDevices.then((options) => this.connectDevice(options));
         }
-
     }
-
-
-  load(): void
-  {
-
-    var self = this;
-    this.stop = false;
-    this.stype= 0;
-    function read(a: string):void {
-      self.onRead.emit(a);
-      self.stream.getTracks()[0].stop();
-      self.stop = true;
-
-    }
-    if(this.isCanvasSupported())
-    {
-        this.initCanvas(800, 600);
-        this.qrCode = new QRCode();
-        this.qrCode.myCallback = read;
-
-        this.setwebcam();
-    }
-    else
-    {
-        document.getElementById("mainbody").style.display="inline";
-        document.getElementById("mainbody").innerHTML='<p id="mp1">QR code scanner for HTML5 capable browsers</p><br>'+
-            '<br><p id="mp2">sorry your browser is not supported</p><br><br>'+
-            '<p id="mp1">try <a href="http://www.mozilla.com/firefox"><img src="firefox.png"/></a> or <a href="http://chrome.google.com"><img src="chrome_logo.gif"/></a> or <a href="http://www.opera.com"><img src="Opera-logo.png"/></a></p>';
-    }
-  }
 }

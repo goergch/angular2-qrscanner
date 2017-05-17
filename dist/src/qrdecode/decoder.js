@@ -1,10 +1,11 @@
+"use strict";
 /*
   Ported to JavaScript by Lazar Laszlo 2011
   
   lazarsoft@gmail.com, www.lazarsoft.info
   
 */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
 *
 * Copyright 2007 ZXing authors
@@ -70,6 +71,8 @@ var Decoder = (function () {
         var numECCodewords = codewordBytes.length - numDataCodewords;
         try {
             this.rsDecoder.decode(codewordsInts, numECCodewords);
+            //var corrector = new ReedSolomon(codewordsInts, numECCodewords);
+            //corrector.correct();
         }
         catch (rse) {
             throw rse;
