@@ -2,7 +2,7 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {QrScannerComponent} from './src/qrscanner.component';
 
-export * from './src/qrscanner.component';
+// export * from './src/qrscanner.component';
 
 @NgModule({
   imports: [

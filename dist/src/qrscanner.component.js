@@ -64,7 +64,9 @@ var QrScannerComponent = (function () {
             clearTimeout(this.captureTimeout);
             this.captureTimeout = false;
         }
-        this.stream.getTracks()[0].stop();
+        if (this.stream.getTracks().length > 0) {
+            this.stream.getTracks()[0].stop();
+        }
         this.stop = true;
     };
     QrScannerComponent.prototype.isCanvasSupported = function () {
@@ -76,9 +78,7 @@ var QrScannerComponent = (function () {
         this.qrCanvas.nativeElement.style.height = h + "px";
         this.gCtx = this.qrCanvas.nativeElement.getContext('2d');
         this.gCtx.clearRect(0, 0, w, h);
-        if (!this.mirror) {
-            this.gCtx.translate(-1, 1);
-        }
+        // if (!this.mirror) { this.gCtx.translate(-1, 1); }
     };
     QrScannerComponent.prototype.connectDevice = function (options) {
         var self = this;
@@ -124,7 +124,6 @@ var QrScannerComponent = (function () {
         if (!this.mirror) {
             this.videoElement.classList.add('mirrored');
         }
-        ;
         this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
         if (_navigator.getUserMedia) {
             this.isWebkit = true;
@@ -147,24 +146,17 @@ var QrScannerComponent = (function () {
             var videoDevice = function (dvc) { return dvc.kind === 'videoinput' && dvc.label.search(/back/i) > -1; };
             return new Promise(function (resolve, reject) {
                 if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-                    try {
-                        navigator.mediaDevices.enumerateDevices()
-                            .then(function (devices) {
-                            var device = devices.find(function (_device) { return videoDevice(_device); });
-                            if (device) {
-                                resolve({ 'deviceId': { 'exact': device.deviceId }, 'facingMode': _this.facing });
-                            }
-                            else {
-                                resolve(true);
-                            }
-                        });
-                    }
-                    catch (e) {
-                        if (_this.debug) {
-                            console.log(e);
+                    navigator.mediaDevices.enumerateDevices()
+                        .then(function (devices) {
+                        var device = devices.find(function (_device) { return videoDevice(_device); });
+                        if (device) {
+                            resolve({ 'deviceId': { 'exact': device.deviceId }, 'facingMode': _this.facing });
                         }
-                        reject(e);
-                    }
+                        else {
+                            resolve(true);
+                        }
+                    })
+                        .catch(function (error) { reject(error); });
                 }
                 else {
                     if (_this.debug) {
