@@ -30,10 +30,6 @@
     "url": "https://github.com/goergch/angular2-qrscanner/issues"
   },
   "main": "./dist/index.js",
-  "files": [
-    "./dist/",
-    "./README.md"
-  ],
   "dependencies": {},
   "devDependencies": {
     "@angular/common": "^4.1.1",
