@@ -104,7 +104,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
             this.captureTimeout = false;
         }
 
-        if (this.stream.getTracks().length > 0) { this.stream.getTracks()[0].stop(); }
+        this.stream.getTracks()[0].stop();
         this.stop = true;
     }
 
@@ -118,6 +118,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
         this.qrCanvas.nativeElement.style.height = `${h}px`;
         this.gCtx = this.qrCanvas.nativeElement.getContext('2d');
         this.gCtx.clearRect(0, 0, w, h);
+        if (!this.mirror) { this.gCtx.translate(-1, 1); }
     }
 
     private connectDevice(options: any): void {
@@ -166,7 +167,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.videoElement = this.renderer.createElement('video');
         this.videoElement.setAttribute('autoplay', 'true');
-        if (!this.mirror) { this.videoElement.classList.add('mirrored') }
+        if (!this.mirror) { this.videoElement.classList.add('mirrored') };
         this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
 
         if (_navigator.getUserMedia) {
@@ -191,21 +192,29 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
         return new Promise((resolve, reject) => {
             if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-                navigator.mediaDevices.enumerateDevices()
-                    .then((devices: MediaDeviceInfo[]) => {
-                        const device = devices.find((_device: MediaDeviceInfo) => videoDevice(_device));
-                        if (device) {
-                            resolve({ 'deviceId': { 'exact': device.deviceId }, 'facingMode': this.facing });
-                        } else {
-                            resolve(true);
-                        }
-                    })
-                    .catch((error: any) => { reject(error); })
+                try {
+                    navigator.mediaDevices.enumerateDevices()
+                        .then((devices: MediaDeviceInfo[]) => {
+                            const device = devices.find((_device: MediaDeviceInfo) => videoDevice(_device));
+                            if (device) {
+                                resolve({ 'deviceId': { 'exact': device.deviceId }, 'facingMode': this.facing });
+                            } else {
+                                resolve(true);
+                            }
+                        });
+                } catch (e) {
+                    if (this.debug) {
+                        console.log(e);
+                    }
+                    reject(e);
+                }
             } else {
-                if (this.debug) { console.log('[QrScanner] no navigator.mediaDevices.enumerateDevices'); }
+                if (this.debug) {
+                    console.log('[QrScanner] no navigator.mediaDevices.enumerateDevices');
+                }
                 resolve(true);
             }
-        });
+        })
     }
 
     private decodeCallback(decoded: string) {
