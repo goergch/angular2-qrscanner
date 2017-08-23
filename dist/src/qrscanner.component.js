@@ -93,7 +93,7 @@ var QrScannerComponent = (function () {
             self.gUM = true;
             self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
         }
-        function error(error) {
+        function error() {
             this.gUM = false;
             return;
         }
@@ -124,7 +124,6 @@ var QrScannerComponent = (function () {
         if (!this.mirror) {
             this.videoElement.classList.add('mirrored');
         }
-        ;
         this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
         if (_navigator.getUserMedia) {
             this.isWebkit = true;
