@@ -43,7 +43,7 @@ export declare class QrScannerComponent implements OnInit, OnDestroy, AfterViewI
     private stream;
     private stop;
     private nativeElement;
-    private supported;
+    supported: boolean;
     private captureTimeout;
     constructor(renderer: Renderer2, element: ElementRef);
     ngOnInit(): void;
