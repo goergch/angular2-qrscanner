@@ -137,7 +137,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         function error(): void {
-            this.gUM = false;
+            self.gUM = false;
             return;
         }
 

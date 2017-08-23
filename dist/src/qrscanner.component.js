@@ -94,7 +94,7 @@ var QrScannerComponent = (function () {
             self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
         }
         function error() {
-            this.gUM = false;
+            self.gUM = false;
             return;
         }
         function captureToCanvas() {
