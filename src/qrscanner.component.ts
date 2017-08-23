@@ -70,7 +70,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     private stop = false;
 
     private nativeElement: ElementRef;
-    private supported = true;
+    public supported = true;
 
     private captureTimeout: any;
 
@@ -136,7 +136,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
             self.captureTimeout = setTimeout(captureToCanvas, self.updateTime);
         }
 
-        function error(error: any): void {
+        function error(): void {
             this.gUM = false;
             return;
         }
@@ -167,7 +167,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.videoElement = this.renderer.createElement('video');
         this.videoElement.setAttribute('autoplay', 'true');
-        if (!this.mirror) { this.videoElement.classList.add('mirrored') };
+        if (!this.mirror) { this.videoElement.classList.add('mirrored') }
         this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
 
         if (_navigator.getUserMedia) {
