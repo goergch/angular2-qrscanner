@@ -282,9 +282,9 @@ var GF256 = (function () {
     GF256.addOrSubtract = function (a, b) {
         return a ^ b;
     };
+    GF256.QR_CODE_FIELD = new GF256(0x011D);
+    GF256.DATA_MATRIX_FIELD = new GF256(0x012D);
     return GF256;
 }());
-GF256.QR_CODE_FIELD = new GF256(0x011D);
-GF256.DATA_MATRIX_FIELD = new GF256(0x012D);
 exports.GF256 = GF256;
 //# sourceMappingURL=gf256.js.map

@@ -62,12 +62,12 @@ var FinderPattern = (function () {
         configurable: true
     });
     ;
+    FinderPattern.MIN_SKIP = 3;
+    FinderPattern.MAX_MODULES = 57;
+    FinderPattern.INTEGER_MATH_SHIFT = 8;
+    FinderPattern.CENTER_QUORUM = 2;
     return FinderPattern;
 }());
-FinderPattern.MIN_SKIP = 3;
-FinderPattern.MAX_MODULES = 57;
-FinderPattern.INTEGER_MATH_SHIFT = 8;
-FinderPattern.CENTER_QUORUM = 2;
 exports.FinderPattern = FinderPattern;
 var FinderPatternInfo = (function () {
     function FinderPatternInfo(patternCenters) {

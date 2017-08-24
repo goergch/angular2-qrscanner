@@ -1,6 +1,6 @@
 {
   "name": "angular2-qrscanner",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "scripts": {
     "build": "ngc -p tsconfig.json",
     "lint": "tslint src/**/*.ts",
