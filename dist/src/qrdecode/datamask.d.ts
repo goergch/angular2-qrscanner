@@ -32,6 +32,6 @@ export declare class DataMask111 {
     isMasked: (i: any, j: any) => boolean;
 }
 export declare class DataMask {
-    static DATA_MASKS: DataMask000[];
+    static DATA_MASKS: DataMask111[];
     static forReference(reference: any): any;
 }

@@ -6,33 +6,15 @@
  /* tslint:disable */
 
 
-import * as import0 from '@angular/core';
-import * as import1 from './index';
-import * as import2 from '@angular/common';
-class QrScannerModuleInjector extends import0.ɵNgModuleInjector<import1.QrScannerModule> {
-  _CommonModule_0:import2.CommonModule;
-  _QrScannerModule_1:import1.QrScannerModule;
-  __NgLocalization_2:import2.NgLocaleLocalization;
-  constructor(parent:import0.Injector) {
-    super(parent,([] as any[]),([] as any[]));
-  }
-  get _NgLocalization_2():import2.NgLocaleLocalization {
-    if ((this.__NgLocalization_2 == null)) { (this.__NgLocalization_2 = new import2.NgLocaleLocalization(this.parent.get(import0.LOCALE_ID))); }
-    return this.__NgLocalization_2;
-  }
-  createInternal():import1.QrScannerModule {
-    this._CommonModule_0 = new import2.CommonModule();
-    this._QrScannerModule_1 = new import1.QrScannerModule();
-    return this._QrScannerModule_1;
-  }
-  getInternal(token:any,notFoundResult:any):any {
-    if ((token === import2.CommonModule)) { return this._CommonModule_0; }
-    if ((token === import1.QrScannerModule)) { return this._QrScannerModule_1; }
-    if ((token === import2.NgLocalization)) { return this._NgLocalization_2; }
-    return notFoundResult;
-  }
-  destroyInternal():void {
-  }
-}
-export const QrScannerModuleNgFactory:import0.NgModuleFactory<import1.QrScannerModule> = new import0.NgModuleFactory<any>(QrScannerModuleInjector,import1.QrScannerModule);
-//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiQzovVXNlcnMvSm/Do28gR29uw6dhbHZlcy93b3JrL2FuZ3VsYXIyLXFyc2Nhbm5lci9pbmRleC5uZ2ZhY3RvcnkudHMiLCJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJuZzovLy9DOi9Vc2Vycy9Kb8OjbyBHb27Dp2FsdmVzL3dvcmsvYW5ndWxhcjItcXJzY2FubmVyL2luZGV4LnRzIl0sInNvdXJjZXNDb250ZW50IjpbIiAiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7In0=
+import * as i0 from '@angular/core';
+import * as i1 from './index';
+import * as i2 from '@angular/common';
+export const QrScannerModuleNgFactory:i0.NgModuleFactory<i1.QrScannerModule> = i0.ɵcmf(i1.QrScannerModule,
+    ([] as any[]),(_l:any) => {
+      return i0.ɵmod([i0.ɵmpd(512,i0.ComponentFactoryResolver,i0.ɵCodegenComponentFactoryResolver,
+          [[8,([] as any[])],[3,i0.ComponentFactoryResolver],i0.NgModuleRef]),i0.ɵmpd(4608,
+          i2.NgLocalization,i2.NgLocaleLocalization,[i0.LOCALE_ID]),i0.ɵmpd(512,i2.CommonModule,
+          i2.CommonModule,([] as any[])),i0.ɵmpd(512,i1.QrScannerModule,i1.QrScannerModule,
+          ([] as any[]))]);
+    });
+//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1VzZXJzL2tldmluL0Rlc2t0b3AvYW5ndWxhcjItcXJzY2FubmVyL2luZGV4Lm5nZmFjdG9yeS50cyIsInZlcnNpb24iOjMsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIm5nOi8vL1VzZXJzL2tldmluL0Rlc2t0b3AvYW5ndWxhcjItcXJzY2FubmVyL2luZGV4LnRzIl0sInNvdXJjZXNDb250ZW50IjpbIiAiXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7In0=
