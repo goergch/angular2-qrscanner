@@ -13,30 +13,29 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var qrscanner_component_1 = require("./src/qrscanner.component");
 __export(require("./src/qrscanner.component"));
-var QrScannerModule = (function () {
+var QrScannerModule = QrScannerModule_1 = (function () {
     function QrScannerModule() {
     }
-    QrScannerModule_1 = QrScannerModule;
     QrScannerModule.forRoot = function () {
         return {
             ngModule: QrScannerModule_1
         };
     };
-    QrScannerModule = QrScannerModule_1 = __decorate([
-        core_1.NgModule({
-            imports: [
-                common_1.CommonModule
-            ],
-            declarations: [
-                qrscanner_component_1.QrScannerComponent
-            ],
-            exports: [
-                qrscanner_component_1.QrScannerComponent
-            ]
-        })
-    ], QrScannerModule);
     return QrScannerModule;
-    var QrScannerModule_1;
 }());
+QrScannerModule = QrScannerModule_1 = __decorate([
+    core_1.NgModule({
+        imports: [
+            common_1.CommonModule
+        ],
+        declarations: [
+            qrscanner_component_1.QrScannerComponent
+        ],
+        exports: [
+            qrscanner_component_1.QrScannerComponent
+        ]
+    })
+], QrScannerModule);
 exports.QrScannerModule = QrScannerModule;
+var QrScannerModule_1;
 //# sourceMappingURL=index.js.map

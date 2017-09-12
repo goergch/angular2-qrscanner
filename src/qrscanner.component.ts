@@ -165,10 +165,15 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
         const _navigator: any = navigator;
 
-        this.videoElement = this.renderer.createElement('video');
-        this.videoElement.setAttribute('autoplay', 'true');
+        if(!this.videoElement){
+            this.videoElement = this.renderer.createElement('video');
+            this.videoElement.setAttribute('autoplay', 'true');
+            this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
+        }
+
+
         if (!this.mirror) { this.videoElement.classList.add('mirrored') }
-        this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
+
 
         if (_navigator.getUserMedia) {
             this.isWebkit = true;
