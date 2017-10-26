@@ -73,7 +73,6 @@ var QrScannerComponent = /** @class */ (function () {
             clearTimeout(this.captureTimeout);
             this.captureTimeout = false;
         }
-        this.stream.getTracks()[0].stop();
         if (this.stream) {
             var tracks = this.stream.getTracks();
             if (tracks && tracks.length && tracks)
