@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var DataBlock = (function () {
+var DataBlock = /** @class */ (function () {
     function DataBlock(numDataCodewords, codewords) {
         this.numDataCodewords = numDataCodewords;
         this.codewords = codewords;

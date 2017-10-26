@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var QRCodeDataBlockReader = (function () {
+var QRCodeDataBlockReader = /** @class */ (function () {
     function QRCodeDataBlockReader(blocks, version, numErrorCorrectionCode) {
         this.blockPointer = 0;
         this.bitPointer = 7;
@@ -269,8 +269,8 @@ var QRCodeDataBlockReader = (function () {
         configurable: true
     });
     ;
+    QRCodeDataBlockReader.sizeOfDataLengthInfo = [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]];
     return QRCodeDataBlockReader;
 }());
-QRCodeDataBlockReader.sizeOfDataLengthInfo = [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]];
 exports.QRCodeDataBlockReader = QRCodeDataBlockReader;
 //# sourceMappingURL=databr.js.map

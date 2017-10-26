@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var DataMask000 = (function () {
+var DataMask000 = /** @class */ (function () {
     function DataMask000() {
         this.isMasked = function (i, j) {
             return ((i + j) & 0x01) == 0;
@@ -40,7 +40,7 @@ var DataMask000 = (function () {
     return DataMask000;
 }());
 exports.DataMask000 = DataMask000;
-var DataMask001 = (function () {
+var DataMask001 = /** @class */ (function () {
     function DataMask001() {
         this.isMasked = function (i, j) {
             return (i & 0x01) == 0;
@@ -58,7 +58,7 @@ var DataMask001 = (function () {
     return DataMask001;
 }());
 exports.DataMask001 = DataMask001;
-var DataMask010 = (function () {
+var DataMask010 = /** @class */ (function () {
     function DataMask010() {
         this.isMasked = function (i, j) {
             return j % 3 == 0;
@@ -76,7 +76,7 @@ var DataMask010 = (function () {
     return DataMask010;
 }());
 exports.DataMask010 = DataMask010;
-var DataMask011 = (function () {
+var DataMask011 = /** @class */ (function () {
     function DataMask011() {
         this.isMasked = function (i, j) {
             return (i + j) % 3 == 0;
@@ -94,7 +94,7 @@ var DataMask011 = (function () {
     return DataMask011;
 }());
 exports.DataMask011 = DataMask011;
-var DataMask100 = (function () {
+var DataMask100 = /** @class */ (function () {
     function DataMask100() {
         this.isMasked = function (i, j) {
             return (((this.URShift(i, 1)) + (j / 3)) & 0x01) == 0;
@@ -118,7 +118,7 @@ var DataMask100 = (function () {
     return DataMask100;
 }());
 exports.DataMask100 = DataMask100;
-var DataMask101 = (function () {
+var DataMask101 = /** @class */ (function () {
     function DataMask101() {
         this.isMasked = function (i, j) {
             var temp = i * j;
@@ -137,7 +137,7 @@ var DataMask101 = (function () {
     return DataMask101;
 }());
 exports.DataMask101 = DataMask101;
-var DataMask110 = (function () {
+var DataMask110 = /** @class */ (function () {
     function DataMask110() {
         this.isMasked = function (i, j) {
             var temp = i * j;
@@ -156,7 +156,7 @@ var DataMask110 = (function () {
     return DataMask110;
 }());
 exports.DataMask110 = DataMask110;
-var DataMask111 = (function () {
+var DataMask111 = /** @class */ (function () {
     function DataMask111() {
         this.isMasked = function (i, j) {
             return ((((i + j) & 0x01) + ((i * j) % 3)) & 0x01) == 0;
@@ -174,7 +174,7 @@ var DataMask111 = (function () {
     return DataMask111;
 }());
 exports.DataMask111 = DataMask111;
-var DataMask = (function () {
+var DataMask = /** @class */ (function () {
     function DataMask() {
     }
     DataMask.forReference = function (reference) {
@@ -183,8 +183,8 @@ var DataMask = (function () {
         }
         return DataMask.DATA_MASKS[reference];
     };
+    DataMask.DATA_MASKS = new Array(new DataMask000(), new DataMask001(), new DataMask010(), new DataMask011(), new DataMask100(), new DataMask101(), new DataMask110(), new DataMask111());
     return DataMask;
 }());
-DataMask.DATA_MASKS = new Array(new DataMask000(), new DataMask001(), new DataMask010(), new DataMask011(), new DataMask100(), new DataMask101(), new DataMask110(), new DataMask111());
 exports.DataMask = DataMask;
 //# sourceMappingURL=datamask.js.map

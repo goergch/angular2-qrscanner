@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { QRCode } from './qrdecode/qrcode'
 
 /**
@@ -104,7 +104,11 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
             this.captureTimeout = false;
         }
 
-        this.stream.getTracks()[0].stop();
+        if (this.stream) {
+            let tracks = this.stream.getTracks();
+            if (tracks && tracks.length && tracks)
+                tracks[0].stop();
+        }
         this.stop = true;
     }
 
@@ -165,7 +169,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
         const _navigator: any = navigator;
 
-        if(!this.videoElement){
+        if (!this.videoElement) {
             this.videoElement = this.renderer.createElement('video');
             this.videoElement.setAttribute('autoplay', 'true');
             this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
@@ -190,7 +194,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
         this.captureTimeout = setTimeout(captureToCanvas, this.updateTime);
     }
 
-    private get findMediaDevices(): Promise<{deviceId: { exact: string }, facingMode: string } | boolean> {
+    private get findMediaDevices(): Promise<{ deviceId: { exact: string }, facingMode: string } | boolean> {
 
         const videoDevice =
             (dvc: MediaDeviceInfo) => dvc.kind === 'videoinput' && dvc.label.search(/back/i) > -1;

@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var BitMatrix = (function () {
+var BitMatrix = /** @class */ (function () {
     function BitMatrix(width, height) {
         if (!height)
             height = width;

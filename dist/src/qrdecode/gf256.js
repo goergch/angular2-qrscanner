@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var GF256Poly = (function () {
+var GF256Poly = /** @class */ (function () {
     function GF256Poly(field, coefficients) {
         this.divide = function (other) {
             if (this.field != other.field) {
@@ -200,7 +200,7 @@ var GF256Poly = (function () {
     return GF256Poly;
 }());
 exports.GF256Poly = GF256Poly;
-var GF256 = (function () {
+var GF256 = /** @class */ (function () {
     function GF256(primitive) {
         this.expTable = new Array(256);
         this.logTable = new Array(256);
@@ -282,9 +282,9 @@ var GF256 = (function () {
     GF256.addOrSubtract = function (a, b) {
         return a ^ b;
     };
+    GF256.QR_CODE_FIELD = new GF256(0x011D);
+    GF256.DATA_MATRIX_FIELD = new GF256(0x012D);
     return GF256;
 }());
-GF256.QR_CODE_FIELD = new GF256(0x011D);
-GF256.DATA_MATRIX_FIELD = new GF256(0x012D);
 exports.GF256 = GF256;
 //# sourceMappingURL=gf256.js.map

@@ -13,7 +13,7 @@ if (!Array.prototype.remove) {
         return this.push.apply(this, rest);
     };
 }
-var FinderPattern = (function () {
+var FinderPattern = /** @class */ (function () {
     function FinderPattern(posX, posY, estimatedModuleSize) {
         this.incrementCount = function () {
             this.count++;
@@ -62,14 +62,14 @@ var FinderPattern = (function () {
         configurable: true
     });
     ;
+    FinderPattern.MIN_SKIP = 3;
+    FinderPattern.MAX_MODULES = 57;
+    FinderPattern.INTEGER_MATH_SHIFT = 8;
+    FinderPattern.CENTER_QUORUM = 2;
     return FinderPattern;
 }());
-FinderPattern.MIN_SKIP = 3;
-FinderPattern.MAX_MODULES = 57;
-FinderPattern.INTEGER_MATH_SHIFT = 8;
-FinderPattern.CENTER_QUORUM = 2;
 exports.FinderPattern = FinderPattern;
-var FinderPatternInfo = (function () {
+var FinderPatternInfo = /** @class */ (function () {
     function FinderPatternInfo(patternCenters) {
         this.bottomLeft = patternCenters[0];
         this.topLeft = patternCenters[1];
@@ -102,7 +102,7 @@ var FinderPatternInfo = (function () {
     return FinderPatternInfo;
 }());
 exports.FinderPatternInfo = FinderPatternInfo;
-var FinderPatternFinder = (function () {
+var FinderPatternFinder = /** @class */ (function () {
     function FinderPatternFinder(width, height) {
         this.possibleCenters = new Array();
         this.hasSkipped = false;

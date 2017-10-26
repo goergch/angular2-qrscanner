@@ -17,7 +17,7 @@ var decoder_1 = require("./decoder");
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-var QRCode = (function () {
+var QRCode = /** @class */ (function () {
     function QRCode() {
         this.debug = false;
         this.maxImgSize = 1024 * 1024;

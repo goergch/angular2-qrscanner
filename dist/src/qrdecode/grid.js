@@ -24,7 +24,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 */
 var detector_1 = require("./detector");
 var bitmat_1 = require("./bitmat");
-var GridSampler = (function () {
+var GridSampler = /** @class */ (function () {
     function GridSampler(width, height) {
         this.width = width;
         this.height = height;
