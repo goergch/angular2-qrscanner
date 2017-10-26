@@ -23,7 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 * limitations under the License.
 */
 var gf256_1 = require("./gf256");
-var ReedSolomonDecoder = (function () {
+var ReedSolomonDecoder = /** @class */ (function () {
     function ReedSolomonDecoder(field) {
         this.field = field;
     }
