@@ -128,7 +128,12 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
         function success(stream: any): void {
             self.stream = stream;
             if (self.isWebkit || self.isMoz) {
-                self.videoElement.src = window.URL.createObjectURL(stream);
+                try{
+                    self.videoElement.src = window.URL.createObjectURL(stream);
+                }catch(error){
+                    self.videoElement.srcObject = stream;
+                }
+
             } else {
                 self.videoElement.src = stream;
             }
