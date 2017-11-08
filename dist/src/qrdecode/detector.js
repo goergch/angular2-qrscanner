@@ -26,7 +26,7 @@ var alignpat_1 = require("./alignpat");
 var grid_1 = require("./grid");
 var version_1 = require("./version");
 var findpat_1 = require("./findpat");
-var PerspectiveTransform = (function () {
+var PerspectiveTransform = /** @class */ (function () {
     function PerspectiveTransform(a11, a21, a31, a12, a22, a32, a13, a23, a33) {
         this.transformPoints1 = function (points) {
             var max = points.length;
@@ -104,7 +104,7 @@ var PerspectiveTransform = (function () {
     return PerspectiveTransform;
 }());
 exports.PerspectiveTransform = PerspectiveTransform;
-var DetectorResult = (function () {
+var DetectorResult = /** @class */ (function () {
     function DetectorResult(bits, points) {
         this.bits = bits;
         this.points = points;
@@ -112,7 +112,7 @@ var DetectorResult = (function () {
     return DetectorResult;
 }());
 exports.DetectorResult = DetectorResult;
-var Detector = (function () {
+var Detector = /** @class */ (function () {
     function Detector(image, rawImage, width, height) {
         this.calculateModuleSizeOneWay = function (pattern, otherPattern) {
             var moduleSizeEst1 = this.sizeOfBlackWhiteBlackRunBothWays(Math.floor(pattern.X), Math.floor(pattern.Y), Math.floor(otherPattern.X), Math.floor(otherPattern.Y));

@@ -27,7 +27,7 @@ var gf256_1 = require("./gf256");
 var bmparser_1 = require("./bmparser");
 var datablock_1 = require("./datablock");
 var databr_1 = require("./databr");
-var Decoder = (function () {
+var Decoder = /** @class */ (function () {
     function Decoder() {
         this.rsDecoder = new rsdecoder_1.ReedSolomonDecoder(gf256_1.GF256.QR_CODE_FIELD);
         this.decode = function (bits) {

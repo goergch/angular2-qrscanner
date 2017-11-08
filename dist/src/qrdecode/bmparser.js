@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var datamask_1 = require("./datamask");
 var formatinf_1 = require("./formatinf");
 var version_1 = require("./version");
-var BitMatrixParser = (function () {
+var BitMatrixParser = /** @class */ (function () {
     function BitMatrixParser(bitmatrix) {
         var dimension = bitmatrix.Dimension;
         if (dimension < 21 || (dimension & 0x03) != 1) {

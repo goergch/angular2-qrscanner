@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var ErrorCorrectionLevel = (function () {
+var ErrorCorrectionLevel = /** @class */ (function () {
     function ErrorCorrectionLevel(ordinal, bits, name) {
         this.ordinal_Renamed_Field = ordinal;
         this.bits = bits;
@@ -53,12 +53,12 @@ var ErrorCorrectionLevel = (function () {
     ErrorCorrectionLevel.prototype.ordinal = function () {
         return this.ordinal_Renamed_Field;
     };
+    ErrorCorrectionLevel.L = new ErrorCorrectionLevel(0, 0x01, "L");
+    ErrorCorrectionLevel.M = new ErrorCorrectionLevel(1, 0x00, "M");
+    ErrorCorrectionLevel.Q = new ErrorCorrectionLevel(2, 0x03, "Q");
+    ErrorCorrectionLevel.H = new ErrorCorrectionLevel(3, 0x02, "H");
+    ErrorCorrectionLevel.FOR_BITS = new Array(ErrorCorrectionLevel.M, ErrorCorrectionLevel.L, ErrorCorrectionLevel.H, ErrorCorrectionLevel.Q);
     return ErrorCorrectionLevel;
 }());
-ErrorCorrectionLevel.L = new ErrorCorrectionLevel(0, 0x01, "L");
-ErrorCorrectionLevel.M = new ErrorCorrectionLevel(1, 0x00, "M");
-ErrorCorrectionLevel.Q = new ErrorCorrectionLevel(2, 0x03, "Q");
-ErrorCorrectionLevel.H = new ErrorCorrectionLevel(3, 0x02, "H");
-ErrorCorrectionLevel.FOR_BITS = new Array(ErrorCorrectionLevel.M, ErrorCorrectionLevel.L, ErrorCorrectionLevel.H, ErrorCorrectionLevel.Q);
 exports.ErrorCorrectionLevel = ErrorCorrectionLevel;
 //# sourceMappingURL=errorlevel.js.map

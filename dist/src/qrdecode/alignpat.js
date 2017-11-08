@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var AlignmentPattern = (function () {
+var AlignmentPattern = /** @class */ (function () {
     function AlignmentPattern(posX, posY, estimatedModuleSize) {
         this.count = 1;
         this.incrementCount = function () {
@@ -74,7 +74,7 @@ var AlignmentPattern = (function () {
     return AlignmentPattern;
 }());
 exports.AlignmentPattern = AlignmentPattern;
-var AlignmentPatternFinder = (function () {
+var AlignmentPatternFinder = /** @class */ (function () {
     function AlignmentPatternFinder(image, startX, startY, width, height, moduleSize, imageWidth, imageHeight, resultPointCallback) {
         this.possibleCenters = new Array();
         this.crossCheckStateCount = new Array(0, 0, 0);
