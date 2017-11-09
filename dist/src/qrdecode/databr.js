@@ -202,6 +202,7 @@ var QRCodeDataBlockReader = /** @class */ (function () {
             var MODE_NUMBER = 1;
             var MODE_ROMAN_AND_NUMBER = 2;
             var MODE_8BIT_BYTE = 4;
+            var MODE_ECI = 7;
             var MODE_KANJI = 8;
             do {
                 var mode = this.NextMode();
@@ -215,7 +216,7 @@ var QRCodeDataBlockReader = /** @class */ (function () {
                 //if (mode != 1 && mode != 2 && mode != 4 && mode != 8)
                 //	break;
                 //}
-                if (mode != MODE_NUMBER && mode != MODE_ROMAN_AND_NUMBER && mode != MODE_8BIT_BYTE && mode != MODE_KANJI) {
+                if (mode != MODE_NUMBER && mode != MODE_ROMAN_AND_NUMBER && mode != MODE_8BIT_BYTE && mode != MODE_KANJI && mode != MODE_ECI) {
                     /*					canvas.println("Invalid mode: " + mode);
                      mode = guessMode(mode);
                      canvas.println("Guessed mode: " + mode); */
