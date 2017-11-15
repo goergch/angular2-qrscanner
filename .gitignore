@@ -3,7 +3,7 @@
 package-lock.json
 node_modules/
 dist/
-
+.idea/
 
 # Created by https://www.gitignore.io/api/webstorm
 
