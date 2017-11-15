@@ -1,18 +1,21 @@
 {
-  "name": "ngx-qrscanner",
+  "name": "angular2-qrscanner",
   "version": "0.2.00-beta",
   "scripts": {
     "build": "ngc -p tsconfig.json",
     "prepublish": "tsc -p tsconfig.json",
     "tsc": "tsc -p tsconfig.json"
   },
-
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tulkasEldarion/angular2-qrscanner"
+  },
   "author": {
-    "name": "Mosh Mage",
-    "email": "moshmage@gmail.com"
+    "name": "Christian Görg",
+    "email": "christian.goerg@de.trumpf.com"
   },
   "contributors": [
-    "Christian Goerg <christian.goerg@de.trumpf.com>"
+    "Mosh Mage <moshmage@gmail.com> (http://moshmage.gitlab.io)"
   ],
   "keywords": [
     "angular",
@@ -25,9 +28,9 @@
     "url": "https://github.com/goergch/angular2-qrscanner/issues"
   },
   "files": [
-    "dist/"
+    "index.js"
   ],
-  "main": "./dist/ng-qr-scannerl.module.js",
+  "main": "./index.js",
   "devDependencies": {
     "@angular/common": "^5.0.1",
     "@angular/compiler": "^5.0.1",
