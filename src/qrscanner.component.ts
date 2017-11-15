@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild, AfterViewInit, NgZone} from '@angular/core';
 import { QRCode } from './qrdecode/qrcode'
 
 /**
@@ -74,7 +74,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private captureTimeout: any;
 
-    constructor(private renderer: Renderer2, private element: ElementRef) {
+    constructor(private renderer: Renderer2, private element: ElementRef, private zone: NgZone) {
         this.nativeElement = this.element.nativeElement;
         this.supported = this.isCanvasSupported();
     }
@@ -228,7 +228,10 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     private decodeCallback(decoded: string) {
-        this.onRead.emit(decoded);
+        this.zone.run(() => {
+            this.onRead.emit(decoded);
+        });
+        
         if (this.stopAfterScan) {
             this.stopScanning();
         }
