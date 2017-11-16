@@ -1,6 +1,6 @@
 {
   "name": "angular2-qrscanner",
-  "version": "0.2.00-beta",
+  "version": "0.2.0-beta.2",
   "scripts": {
     "build": "ngc -p tsconfig.json",
     "prepublish": "tsc -p tsconfig.json",
@@ -28,7 +28,8 @@
     "url": "https://github.com/goergch/angular2-qrscanner/issues"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "src/"
   ],
   "main": "./index.js",
   "devDependencies": {
