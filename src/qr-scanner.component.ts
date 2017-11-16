@@ -74,6 +74,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
       this.gCtx = this.qrCanvas.nativeElement.getContext('2d');
       this.gCtx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
       this.qrCode = new QRCode();
+      if (this.debug) this.qrCode.debug = true;
       this.qrCode.myCallback = (decoded: string) => this.QrDecodeCallback(decoded);
     }
     this.chooseCamera$ = this.chooseCamera.subscribe((camera: MediaDeviceInfo) => this.useDevice(camera));
