@@ -1,5 +1,7 @@
 node_modules/
 *.ts
+!*.d.ts
+src/
 
 # Created by https://www.gitignore.io/api/webstorm
 

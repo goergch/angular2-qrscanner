@@ -432,7 +432,7 @@ export class FinderPatternFinder{
 		if (startSize < 3)
 		{
 			// Couldn't find enough finder patterns
-			throw "Couldn't find enough finder patterns";
+			throw `Couldn't find enough finder patterns (found: ${startSize})`;
 		}
 
 		// Filter outlier possibilities whose module size is too different

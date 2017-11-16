@@ -1,12 +1,11 @@
 import {
   AfterViewInit,
   Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
-  ViewChild, Renderer2, NgZone
+  ViewChild, Renderer2
 } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
 import {QRCode} from './lib/qr-decoder/qrcode';
-
 
 @Component({
   selector: 'qr-scanner',
@@ -16,18 +15,18 @@ import {QRCode} from './lib/qr-decoder/qrcode';
     ':host {}'
   ],
   template: `
-    <ng-container [ngSwitch]="isCanvasSupported">
-      <ng-container *ngSwitchDefault>
-        <canvas #qrCanvas hidden="true"></canvas>
-        <div #videoWrapper [style.width]="canvasWidth" [style.height]="canvasHeight"></div>
-      </ng-container>
-      <ng-container *ngSwitchCase="false">
-        <p>
-          You are using an <strong>outdated</strong> browser.
-          Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
-        </p>
-      </ng-container>
-    </ng-container>`
+      <ng-container [ngSwitch]="isCanvasSupported">
+          <ng-container *ngSwitchDefault>
+              <canvas #qrCanvas hidden="true"></canvas>
+              <div #videoWrapper [style.width]="canvasWidth" [style.height]="canvasHeight"></div>
+          </ng-container>
+          <ng-container *ngSwitchCase="false">
+              <p>
+                  You are using an <strong>outdated</strong> browser.
+                  Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+              </p>
+          </ng-container>
+      </ng-container>`
 })
 export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -97,8 +96,10 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     const stream = this.stream && this.stream.getTracks().length && this.stream;
-    if (stream)
+    if (stream) {
       stream.getTracks().forEach(track => track.enabled && track.stop())
+      this.stream = null;
+    }
   }
 
   getMediaDevices(): Promise<MediaDeviceInfo[]> {
@@ -119,10 +120,21 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  private captureToCanvas() {
+    try {
+      this.gCtx.drawImage(this.videoElement, 0, 0, this.canvasWidth, this.canvasHeight);
+      this.qrCode.decode(this.qrCanvas.nativeElement);
+    } catch (e) {
+      if (this.debug) console.log('[QrScanner] Thrown', e);
+      if (!this.stream) return;
+      this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);
+    }
+  }
+
   private setStream(stream: any) {
     this.stream = stream;
     this.videoElement.src = window.URL.createObjectURL(stream);
-    this.captureTimeout = setTimeout(() => {}, 0);
+    this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);
   }
 
   private useDevice(_device: MediaDeviceInfo) {

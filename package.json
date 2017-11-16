@@ -3,7 +3,6 @@
   "version": "0.2.0-beta.2",
   "scripts": {
     "build": "ngc -p tsconfig.json",
-    "prepublish": "tsc -p tsconfig.json",
     "tsc": "tsc -p tsconfig.json"
   },
   "repository": {
@@ -27,11 +26,7 @@
   "bugs": {
     "url": "https://github.com/goergch/angular2-qrscanner/issues"
   },
-  "files": [
-    "index.js",
-    "src/"
-  ],
-  "main": "./index.js",
+  "main": "./dist/index.js",
   "devDependencies": {
     "@angular/common": "^5.0.1",
     "@angular/compiler": "^5.0.1",
@@ -40,5 +35,6 @@
     "@angular/platform-browser": "^5.0.1",
     "rxjs": "^5.5.2",
     "typescript": "^2.6.1"
-  }
+  },
+  "typings": "./dist/index.d.ts"
 }

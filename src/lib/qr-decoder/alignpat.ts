@@ -295,6 +295,6 @@ export class AlignmentPatternFinder{
 			return  this.possibleCenters[0];
 		}
 
-		throw "Couldn't find enough alignment patterns";
+		throw `Couldn't find enough alignment patterns`;
 	}
 }
