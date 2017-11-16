@@ -1,5 +1,5 @@
 {
-  "name": "angular2-qrscanner",
+  "name": "ngx-qrscanner",
   "version": "0.2.0-beta.2",
   "scripts": {
     "build": "ngc -p tsconfig.json",
@@ -36,5 +36,8 @@
     "rxjs": "^5.5.2",
     "typescript": "^2.6.1"
   },
-  "typings": "./dist/index.d.ts"
+  "typings": [
+    "./dist/index.d.ts",
+    "./dist/qr-scanner.component.d.ts"
+  ]
 }
