@@ -1,5 +1,7 @@
 
 *.js.map
+*.js
+*.d.ts
 package-lock.json
 node_modules/
 dist/

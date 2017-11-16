@@ -30,15 +30,15 @@ export class AppModule { }
 ```html
 <!-- app.component.html -->
 <qr-scanner
-    [canvasWidth]="100"                    <!-- canvas width                                 (default: 640) -->
-    [canvasHeight]="100"                   <!-- canvas height                                (default: 480) -->
-    [debug]="false"                        <!-- debug flag for console.log spam              (default: false) -->         
-    [updateTime]="500"                     <!-- miliseconds between new capture              (default: 500) -->
-    [stopAfterScan]="true"                 <!-- should the scanner stop after first success? (default: true) -->
-    [chooseCamera]="chosenCameraSubject"   <!-- MediaDevice to be used by QrScanner          (NO DEFAULT!!) -->
-    (foundCameras)="listCameras($event)">  <!-- The list of MediaDevices found by QrScanner                 -->
-    (capturedQr)="decoded($event)"
-  </qr-scanner>
+                   [canvasWidth]="100"                    <!-- canvas width                                 (default: 640) -->
+                   [canvasHeight]="100"                   <!-- canvas height                                (default: 480) -->
+                   [debug]="false"                        <!-- debug flag for console.log spam              (default: false) -->         
+                   [updateTime]="500"                     <!-- miliseconds between new capture              (default: 500) -->
+                   [stopAfterScan]="true"                 <!-- should the scanner stop after first success? (default: true) -->
+                   [chooseCamera]="chosenCameraSubject"   <!-- MediaDevice to be used by QrScanner          (NO DEFAULT!!) -->
+                   (foundCameras)="listCameras($event)">  <!-- The list of MediaDevices found by QrScanner                 -->
+                   (capturedQr)="decoded($event)"
+                 </qr-scanner>
 ```
 
 ```typescript
