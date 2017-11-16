@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
-  ViewChild, Renderer2
+  ViewChild, Renderer2, NgZone
 } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
@@ -110,7 +110,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
-  private QrDecodeCallback(decoded: string) {
+  public QrDecodeCallback(decoded: string) {
     this.capturedQr.next(decoded);
     if (this.stopAfterScan) {
       clearTimeout(this.captureTimeout);
