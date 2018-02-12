@@ -23,7 +23,6 @@
 */
 
 
-import {PerspectiveTransform} from "./detector";
 
 import {BitMatrix} from "./bitmat"
 
@@ -155,15 +154,6 @@ export class GridSampler{
 			}
 		}
 		return bits;
-	}
-
-	sampleGridx( image:any,  dimension:any,  p1ToX:any,  p1ToY:any,  p2ToX:any,  p2ToY:any,  p3ToX:any,  p3ToY:any,  p4ToX:any,  p4ToY:any,  p1FromX:any,  p1FromY:any,  p2FromX:any,  p2FromY:any,  p3FromX:any,  p3FromY:any,  p4FromX:any,  p4FromY:any): any
-	{
-
-
-		var transform = PerspectiveTransform.quadrilateralToQuadrilateral(p1ToX, p1ToY, p2ToX, p2ToY, p3ToX, p3ToY, p4ToX, p4ToY, p1FromX, p1FromY, p2FromX, p2FromY, p3FromX, p3FromY, p4FromX, p4FromY);
-
-		return this.sampleGrid3(image, {}, dimension, transform);
 	}
 
 }
