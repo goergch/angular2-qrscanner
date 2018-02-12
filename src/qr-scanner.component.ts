@@ -50,7 +50,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   public videoElement: HTMLVideoElement;
   public qrCode: QRCode;
   public stream: MediaStream;
-  public captureTimeout: number;
+  public captureTimeout: any;
 
   get isCanvasSupported(): boolean {
     const canvas = this.renderer.createElement('canvas');
