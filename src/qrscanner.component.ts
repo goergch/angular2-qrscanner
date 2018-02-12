@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, Renderer2, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
-import { QRCode } from './qrdecode/qrcode'
+import { QRCode } from './qrdecode/qrcode';
 
 /**
  * QrScanner will scan for a QRCode from your Web-cam and return its
@@ -16,7 +16,7 @@ import { QRCode } from './qrdecode/qrcode'
  *     [updateTime]="500"       miliseconds between new capture              (default: 500)
  *     (onRead)="decodedOutput(string)" </qr-scanner>
  *
- * @public
+ * @public:
  * startScanning() {void}       Method called by ngInit to find devices and start scanning.
  * stopScanning() {void}        Method called by ngDestroy (or on successful qr-scan) to stop scanning
  *

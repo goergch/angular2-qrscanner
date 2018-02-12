@@ -1,23 +1,26 @@
 {
   "name": "angular2-qrscanner",
-  "version": "0.1.12",
+  "version": "1.0.0",
   "scripts": {
-    "build": "ngc -p tsconfig.json",
-    "lint": "tslint src/**/*.ts",
-    "test": "tsc -p tsconfig.json && karma start",
-    "prepublish": "tsc -p tsconfig.json",
-    "tsc": "tsc -p tsconfig.json"
+    "build": "ng-packagr -p ng-package.json",
+    "test": "npm run lint && ng test --watch false",
+    "test-watch": "ng test",
+    "e2e": "ng e2e",
+    "e2e-watch": "watch \"ng e2e -s false\" src e2e --wait=1",
+    "lint": "ng lint"
   },
+  "main": "./src/index.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tulkasEldarion/angular2-qrscanner"
+    "url": "https://github.com/goergch/angular2-qrscanner"
   },
   "author": {
     "name": "Christian Görg",
-    "email": "christian.goerg@de.trumpf.com"
+    "email": "goergc@gmx.de"
   },
   "contributors": [
-    "Mosh Mage <moshmage@gmail.com> (http://moshmage.gitlab.io)"
+    "Mosh Mage <moshmage@gmail.com> (http://moshmage.gitlab.io)",
+    "Christian Görg <goergc@gmx.de> (http://github.com/goergch)"
   ],
   "keywords": [
     "angular",
@@ -29,21 +32,30 @@
   "bugs": {
     "url": "https://github.com/goergch/angular2-qrscanner/issues"
   },
-  "main": "./dist/index.js",
   "dependencies": {},
   "devDependencies": {
-    "@angular/common": "^4.1.1",
-    "@angular/compiler": "^4.1.1",
-    "@angular/compiler-cli": "^4.1.1",
-    "@angular/core": "^4.1.1",
-    "@angular/platform-browser": "^4.1.1",
-    "@angular/platform-server": "^4.1.1",
-    "@types/es6-shim": "^0.31.32",
-    "@types/selenium-webdriver": "^2.53.39",
-    "codelyzer": "^3.0.1",
-    "rxjs": "^5.3.1",
-    "tslint": "^5.2.0",
-    "typescript": "^2.3.2",
-    "zone.js": "^0.8.10"
+    "@angular/common": "^5.2.4",
+    "@angular/compiler": "^5.2.4",
+    "@angular/compiler-cli": "^5.2.4",
+    "@angular/core": "^5.2.4",
+    "@angular/platform-browser": "^5.2.4",
+    "@angular/platform-server": "^5.2.4",
+    "@types/es6-shim": "^0.31.35",
+    "@types/selenium-webdriver": "^3.0.8",
+    "@types/jasmine": "~2.8.6",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~9.4.5",
+    "codelyzer": "^4.1.0",
+    "core-js": "^2.5.3",
+    "ng-packagr": "^2.0.0",
+    "rxjs": "^5.5.6",
+    "tslint": "^5.9.1",
+    "ts-node": "~4.1.0",
+    "typescript": "^2.4.2",
+    "zone.js": "^0.8.20",
+    "tsickle": "^0.26.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
