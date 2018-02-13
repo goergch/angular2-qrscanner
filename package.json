@@ -1,6 +1,6 @@
 {
   "name": "angular2-qrscanner",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "scripts": {
     "start": "ng serve --aot --host 0.0.0.0",
     "build": "ng-packagr -p ng-package.json",
@@ -13,7 +13,7 @@
   "main": "./src/index.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/goergch/angular2-qrscanner"
+    "url": "cd dishttps://github.com/goergch/angular2-qrscanner"
   },
   "author": {
     "name": "Christian Görg",
