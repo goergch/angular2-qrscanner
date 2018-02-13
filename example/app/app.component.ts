@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 
 
     ngOnInit() {
+
         this.qrScannerComponent.getMediaDevices().then(devices => {
             console.log(devices);
             const videoDevices: MediaDeviceInfo[] = [];
@@ -41,6 +42,11 @@ export class AppComponent implements OnInit {
                     this.qrScannerComponent.chooseCamera.next(videoDevices[0]);
                 }
             }
+        });
+
+        this.qrScannerComponent.capturedQr.subscribe(result => {
+            console.log(result);
+            // this.qrScannerComponent.stopScanning();
         });
 
 

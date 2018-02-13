@@ -17,7 +17,7 @@ import {QRCode} from './lib/qr-decoder/qrcode';
   template: `
       <ng-container [ngSwitch]="isCanvasSupported">
           <ng-container *ngSwitchDefault>
-              <canvas #qrCanvas hidden="true"></canvas>
+              <canvas #qrCanvas hidden="true" [width]="canvasWidth" [height]="canvasHeight"></canvas>
               <div #videoWrapper [style.width]="canvasWidth" [style.height]="canvasHeight"></div>
           </ng-container>
           <ng-container *ngSwitchCase="false">
@@ -117,6 +117,8 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.stopAfterScan) {
       clearTimeout(this.captureTimeout);
       this.captureTimeout = 0;
+    } else {
+        this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);
     }
   }
 
@@ -133,7 +135,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private setStream(stream: any) {
     this.stream = stream;
-    this.videoElement.src = window.URL.createObjectURL(stream);
+      this.videoElement.srcObject = stream;
     this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);
   }
 
@@ -146,6 +148,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.videoElement) {
       this.videoElement = this.renderer.createElement('video');
       this.videoElement.setAttribute('autoplay', 'true');
+      this.videoElement.setAttribute('muted', 'true');
       this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
     }
 
