@@ -30,39 +30,62 @@ export class AppModule { }
 ```html
 <!-- app.component.html -->
 <qr-scanner
-                   [canvasWidth]="640"                    <!-- canvas width                                 (default: 640) -->
-                   [canvasHeight]="480"                   <!-- canvas height                                (default: 480) -->
-                   [debug]="false"                        <!-- debug flag for console.log spam              (default: false) -->         
-                   [updateTime]="500"                     <!-- miliseconds between new capture              (default: 500) -->
-                   [stopAfterScan]="true"                 <!-- should the scanner stop after first success? (default: true) -->
-                   [chooseCamera]="chosenCameraSubject"   <!-- MediaDevice to be used by QrScanner          (NO DEFAULT!!) -->
-                   (foundCameras)="listCameras($event)">  <!-- The list of MediaDevices found by QrScanner                 -->
-                   (capturedQr)="decoded($event)"
-                 </qr-scanner>
+        [debug]="false"
+        [canvasWidth]="1080" <!-- canvas width                                 (default: 640) -->
+        [canvasHeight]="720" <!-- canvas height                                (default: 480) -->
+        [stopAfterScan]="true" <!-- should the scanner stop after first success? (default: true) -->
+        [updateTime]="500"> <!-- miliseconds between new capture              (default: 500) -->
+</qr-scanner>
+
 ```
 
 ```typescript
 // app.component.ts
 
-import { Component } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import {Component, ViewChild, ViewEncapsulation, OnInit} from '@angular/core';
+import {QrScannerComponent} from 'angular2-qrscanner';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent {
-  chosenCameraSubject = new Subject();
+export class AppComponent implements OnInit {
 
-  decodedOutput($event: string) {
-    console.log('Decoded', $event);
-  }
 
-  listCameras($event: MediaDeviceInfo[]) {
-    console.log('MediaDeviceInfo', $event);
-    this.chosenCameraSubject.next($event.filter(device => device.kind === 'videoinput')[0])
-  }
+    @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent ;
+
+    ngOnInit() {
+        this.qrScannerComponent.getMediaDevices().then(devices => {
+            console.log(devices);
+            const videoDevices: MediaDeviceInfo[] = [];
+            for (const device of devices) {
+                if (device.kind.toString() === 'videoinput') {
+                    videoDevices.push(device);
+                }
+            }
+            if (videoDevices.length > 0){
+                let choosenDev;
+                for (const dev of videoDevices){
+                    if (dev.label.includes('front')){
+                        choosenDev = dev;
+                        break;
+                    }
+                }
+                if (choosenDev) {
+                    this.qrScannerComponent.chooseCamera.next(choosenDev);
+                } else {
+                    this.qrScannerComponent.chooseCamera.next(videoDevices[0]);
+                }
+            }
+        });
+
+        this.qrScannerComponent.capturedQr.subscribe(result => {
+            console.log(result);
+        });
+    }
 }
+
 
 ```
