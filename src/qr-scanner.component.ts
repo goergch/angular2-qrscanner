@@ -17,7 +17,7 @@ import {QRCode} from './lib/qr-decoder/qrcode';
     template: `
         <ng-container [ngSwitch]="isCanvasSupported">
             <ng-container *ngSwitchDefault>
-                <canvas #qrCanvas hidden="true" [width]="canvasWidth" [height]="canvasHeight"></canvas>
+                <canvas #qrCanvas [hidden]="canvasHidden" [width]="canvasWidth" [height]="canvasHeight"></canvas>
                 <div #videoWrapper [style.width]="canvasWidth" [style.height]="canvasHeight"></div>
             </ng-container>
             <ng-container *ngSwitchCase="false">
@@ -51,7 +51,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     public qrCode: QRCode;
     public stream: MediaStream;
     public captureTimeout: any;
-
+    private  canvasHidden = true;
     get isCanvasSupported(): boolean {
         const canvas = this.renderer.createElement('canvas');
         return !!(canvas.getContext && canvas.getContext('2d'));
@@ -91,6 +91,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
             clearTimeout(this.captureTimeout);
             this.captureTimeout = 0;
         }
+        this.canvasHidden = false;
 
         const stream = this.stream && this.stream.getTracks().length && this.stream;
         if (stream) {
@@ -110,13 +111,15 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public QrDecodeCallback(decoded: string) {
-        this.capturedQr.next(decoded);
         if (this.stopAfterScan) {
-            clearTimeout(this.captureTimeout);
-            this.captureTimeout = 0;
+            this.stopScanning();
+            this.capturedQr.next(decoded);
         } else {
+            this.capturedQr.next(decoded);
             this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);
         }
+
+
     }
 
     private captureToCanvas() {
@@ -131,6 +134,8 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     private setStream(stream: any) {
+        this.canvasHidden = true;
+        this.gCtx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
         this.stream = stream;
         this.videoElement.srcObject = stream;
         this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);
