@@ -3,8 +3,8 @@ import {
     Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
     ViewChild, Renderer2
 } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
-import {Subscription} from 'rxjs/Subscription';
+import {Subject} from 'rxjs/internal/Subject';
+import {Subscription} from 'rxjs/internal/Subscription';
 import {QRCode} from './lib/qr-decoder/qrcode';
 
 @Component({
@@ -78,7 +78,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
             this.qrCode.myCallback = (decoded: string) => this.QrDecodeCallback(decoded);
         }
         this.chooseCamera$ = this.chooseCamera.subscribe((camera: MediaDeviceInfo) => this.useDevice(camera));
-        this.getMediaDevices().then(devices => this.foundCameras.next(devices));
+        this.getMediaDevices().then(devices => this.foundCameras.emit(devices));
     }
 
     startScanning(device: MediaDeviceInfo) {
@@ -113,9 +113,9 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     public QrDecodeCallback(decoded: string) {
         if (this.stopAfterScan) {
             this.stopScanning();
-            this.capturedQr.next(decoded);
+            this.capturedQr.emit(decoded);
         } else {
-            this.capturedQr.next(decoded);
+            this.capturedQr.emit(decoded);
             this.captureTimeout = setTimeout(() => this.captureToCanvas(), this.updateTime);
         }
 
