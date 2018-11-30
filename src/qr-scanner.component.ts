@@ -3,8 +3,7 @@ import {
     Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
     ViewChild, Renderer2
 } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
-import {Subscription} from 'rxjs/Subscription';
+import {Subject, Subscription} from 'rxjs';
 import {QRCode} from './lib/qr-decoder/qrcode';
 
 @Component({
