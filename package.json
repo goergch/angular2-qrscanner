@@ -1,6 +1,6 @@
 {
   "name": "angular2-qrscanner",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "scripts": {
     "start": "ng serve --aot --host 0.0.0.0",
     "build": "ng-packagr -p ng-package.json",
