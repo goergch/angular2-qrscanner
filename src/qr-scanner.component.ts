@@ -50,7 +50,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     public qrCode: QRCode;
     public stream: MediaStream;
     public captureTimeout: any;
-    private  canvasHidden = true;
+    public  canvasHidden = true;
     get isCanvasSupported(): boolean {
         const canvas = this.renderer.createElement('canvas');
         return !!(canvas.getContext && canvas.getContext('2d'));
