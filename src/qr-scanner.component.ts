@@ -151,6 +151,7 @@ export class QrScannerComponent implements OnInit, OnDestroy, AfterViewInit {
             this.videoElement = this.renderer.createElement('video');
             this.videoElement.setAttribute('autoplay', 'true');
             this.videoElement.setAttribute('muted', 'true');
+            this.videoElement.setAttribute('playsinline','true');
             this.renderer.appendChild(this.videoWrapper.nativeElement, this.videoElement);
         }
         const self = this;
