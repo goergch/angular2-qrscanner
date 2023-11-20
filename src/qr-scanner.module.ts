@@ -10,7 +10,7 @@ import { QrScannerComponent } from './qr-scanner.component';
   exports: [QrScannerComponent]
 })
 export class NgQrScannerModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<NgQrScannerModule> {
     return {
       ngModule: NgQrScannerModule
     };

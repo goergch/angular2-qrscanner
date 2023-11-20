@@ -5,6 +5,7 @@
 /dist-ghpages
 /tmp
 /out-tsc
+/.angular
 
 # dependencies
 /node_modules

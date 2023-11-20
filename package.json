@@ -1,8 +1,8 @@
 {
-  "name": "angular2-qrscanner",
-  "version": "1.0.7",
+  "name": "ngx-qrscanner",
+  "version": "17.0.0",
   "scripts": {
-    "start": "ng serve --aot --host 0.0.0.0",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng-packagr -p ng-package.json",
     "test": "npm run lint && ng test --watch false",
     "test-watch": "ng test",
@@ -13,12 +13,18 @@
   "main": "./src/index.ts",
   "repository": {
     "type": "git",
-    "url": "cd dishttps://github.com/goergch/angular2-qrscanner"
+    "url": "https://github.com/mohammadrafigh/ngx-qrscanner"
   },
-  "author": {
-    "name": "Christian Görg",
-    "email": "goergc@gmx.de"
-  },
+  "authors": [
+    {
+      "name": "Christian Görg",
+      "email": "goergc@gmx.de"
+    },
+    {
+      "name": "Mohammad Rafigh",
+      "email": "mohammad.rafigh@gmail.com"
+    }
+  ],
   "contributors": [
     "Mosh Mage <moshmage@gmail.com> (http://moshmage.gitlab.io)",
     "Christian Görg <goergc@gmx.de> (http://github.com/goergch)"
@@ -31,35 +37,35 @@
   ],
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/goergch/angular2-qrscanner/issues"
+    "url": "https://github.com/mohammadrafigh/ngx-qrscanner/issues"
   },
   "dependencies": {},
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.8.0",
-    "@angular/cli": "^6.2.3",
-    "@angular/common": "6.1.7",
-    "@angular/compiler": "6.1.7",
-    "@angular/compiler-cli": "6.1.7",
-    "@angular/core": "6.1.7",
-    "@angular/platform-browser": "6.1.7",
-    "@angular/platform-browser-dynamic": "6.1.7",
-    "@angular/platform-server": "6.1.7",
-    "@types/es6-shim": "^0.31.37",
-    "@types/jasmine": "^2.8.8",
-    "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^9.6.31",
-    "@types/selenium-webdriver": "^3.0.10",
-    "codelyzer": "^4.4.4",
-    "core-js": "^2.5.7",
-    "moment": "~>2.19.3",
-    "ng-packagr": "^2.4.5",
-    "rxjs": "^6.3.2",
-    "ssri": "~>5.2.2",
-    "ts-node": "~4.1.0",
-    "tsickle": "^0.26.0",
-    "tslint": "^5.11.0",
-    "typescript": "2.9.2",
-    "zone.js": "^0.8.26"
+    "@angular-devkit/build-angular": "~17.0.1",
+    "@angular/cli": "^17.0.1",
+    "@angular/common": "17.0.3",
+    "@angular/compiler": "17.0.3",
+    "@angular/compiler-cli": "17.0.3",
+    "@angular/core": "17.0.3",
+    "@angular/platform-browser": "17.0.3",
+    "@angular/platform-browser-dynamic": "17.0.3",
+    "@angular/platform-server": "17.0.3",
+    "@types/es6-shim": "^0.31.45",
+    "@types/jasmine": "^5.1.2",
+    "@types/jasminewd2": "~2.0.13",
+    "@types/node": "^20.9.2",
+    "@types/selenium-webdriver": "^4.1.20",
+    "codelyzer": "^6.0.2",
+    "core-js": "^2.5.4",
+    "moment": "~>2.29.4",
+    "ng-packagr": "^17.0.2",
+    "rxjs": "^7.8.1",
+    "ssri": "~>10.0.5",
+    "ts-node": "~10.9.1",
+    "tsickle": "^0.46.3",
+    "tslint": "^6.1.3",
+    "typescript": "5.2.2",
+    "zone.js": "^0.14.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
