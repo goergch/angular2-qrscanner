@@ -1,5 +1,5 @@
 {
-  "name": "ngx-qrscanner",
+  "name": "ngx-ivy-qrscanner",
   "version": "17.0.0",
   "scripts": {
     "start": "ng serve --host 0.0.0.0",

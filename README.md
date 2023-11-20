@@ -5,7 +5,7 @@ and use [@LazarSoft/jsqrcode](https://github.com/LazarSoft/jsqrcode) to check fo
 
 ### usage
 ```bash
-$ npm install --save angular2-qrscanner
+$ npm install --save ngx-ivy-qrscanner
 ```
 
 ```typescript
@@ -21,7 +21,7 @@ import { NgQrScannerModule } from 'angular2-qrscanner';
   ],
   providers: [],
   bootstrap: [
-      
+
   ]
 })
 export class AppModule { }
